@@ -2,7 +2,7 @@
 
 import React, { useMemo, useState } from "react";
 import Link from "next/link";
-import HeaderWhite from "@/components/Header/HeaderWhite";
+import HeaderGreen from "@/components/Header/HeaderGreen";
 import BreadcrumbSection from "@/components/Breadcrumbs";
 import Footer from "@/components/Footer/index";
 import { getAllNews } from "./data";
@@ -28,7 +28,7 @@ export default function NewsPage() {
 
   return (
     <main className="w-full bg-white">
-      <HeaderWhite />
+      <HeaderGreen />
 
       {/* Hero */}
       <section className="w-full bg-[#f5f5f5]">

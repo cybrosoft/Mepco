@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import HeaderWhite from "@/components/Header/HeaderWhite";
+import HeaderGreen from "@/components/Header/HeaderGreen";
 import BreadcrumbSection from "@/components/Breadcrumbs";
 import Footer from "@/components/Footer";
 
@@ -27,7 +27,7 @@ export default function LeadershipPage() {
 
   return (
     <main className="w-full bg-[#f9f8f3]">
-      <HeaderWhite />
+      <HeaderGreen />
 
       <BreadcrumbSection
         className="bg-[#f9f8f3]"

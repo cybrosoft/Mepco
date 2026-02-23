@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 
-import HeaderWhite from "@/components/Header/HeaderWhite";
+import HeaderGreen from "@/components/Header/HeaderGreen";
 import BreadcrumbSection from "@/components/Breadcrumbs";
 import Footer from "@/components/Footer/index";
 
@@ -35,7 +35,7 @@ export default async function SingleNewsPage({ params }) {
   if (!item) {
     return (
       <main className="w-full bg-white">
-        <HeaderWhite />
+        <HeaderGreen />
 
         <section className="max-w-6xl mx-auto px-6 py-16">
           <h1 className="text-2xl font-semibold text-[#2d2d2d]">
@@ -60,7 +60,7 @@ export default async function SingleNewsPage({ params }) {
 
   return (
     <main className="w-full bg-white">
-      <HeaderWhite />
+      <HeaderGreen />
 
       {/* Breadcrumbs hidden on mobile */}
       <div className="hidden md:block">
