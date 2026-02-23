@@ -47,9 +47,9 @@ const SubsidiaryCompanies = ({
   const sliderViewportWidth = `calc(100vw - (${containerLeftOffset}))`;
 
   return (
-    <section className="w-full bg-white py-12 lg:py-20 overflow-hidden">
+    <section className="w-full bg-white pt-12 pb-22 lg:py-20 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 lg:gap-10 pb-15">
+        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 lg:gap-10 pb-15">
           <div className="w-full max-w-none lg:max-w-xl">
             <h2 className="text-3xl md:text-4xl font-bold text-[#2d2d2d] mb-6">
               {heading}
@@ -61,15 +61,15 @@ const SubsidiaryCompanies = ({
 
           <Link
             href={ctaHref}
-            className="hidden lg:block mt-4 lg:mt-2 self-start border border-[#01646e] text-[#01646e] hover:bg-[#01646e] hover:text-white px-8 py-3 rounded-full text-md font-semibold transition"
+            className="mt-4 lg:mt-2 self-start border border-[#01646e] text-[#01646e] hover:bg-[#01646e] hover:text-white px-8 py-3 rounded-full text-md font-semibold transition"
           >
             {ctaText}
           </Link>
         </div>
 
         {(canPrev || canNext) && (
-          <div className="flex justify-start lg:justify-end mt-6 -mb-30 pr-2 pl-2 relative z-30">
-            <div className="inline-flex items-center rounded-full border border-white/90 bg-black/25 backdrop-blur-[2px] px-5 py-2 shadow-sm">
+          <div className="flex justify-start lg:justify-end mt-108 -mb-134  sm:mt-6 sm:-mb-30 pr-2 pl-2 relative z-30">
+            <div className="inline-flex items-center rounded-full border border-white/90 bg-black/70 backdrop-blur-[2px] px-5 py-2 shadow-sm">
               <button
                 type="button"
                 onClick={() => emblaApi?.scrollPrev()}
@@ -142,18 +142,6 @@ const SubsidiaryCompanies = ({
           </div>
         </div>
       </div>
-      <div className="lg:hidden mx-auto max-w-7xl px-6">
-        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 lg:gap-10">
-
-
-          <Link
-            href={ctaHref}
-            className="mt-10 lg:mt-2 self-start border border-[#01646e] text-[#01646e] hover:bg-[#01646e] hover:text-white px-8 py-3 rounded-full text-md font-semibold transition"
-          >
-            {ctaText}
-          </Link>
-        </div>
-        </div>
 
       { /*  <div className="mx-auto max-w-7xl px-6 mt-10">
         <div className="h-[2px] w-full bg-[#cfc8bc] rounded-full overflow-hidden">
