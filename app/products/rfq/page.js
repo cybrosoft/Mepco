@@ -1,6 +1,6 @@
 "use client";
 
-import HeaderWhite from "@/components/Header/HeaderWhite";
+import HeaderGreen from "@/components/Header/HeaderGreen";
 import Footer from "@/components/Footer";
 import BreadcrumbSection from "@/components/Breadcrumbs";
 import { RFQ_PAGE } from "./data";
@@ -11,7 +11,7 @@ import RfqShell from "./RfqShell";
 export default function RfqPage() {
   return (
     <main className="min-h-screen bg-white text-neutral-900">
-          <HeaderWhite />
+          <HeaderGreen />
 
       <BreadcrumbSection
         className="bg-[#f9f8f3]"
