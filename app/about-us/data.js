@@ -1,3 +1,4 @@
+// app/about-us/data.js
 const SITE_URL = "https://mep.co";
 
 export const aboutPage = {
@@ -16,13 +17,12 @@ export const aboutPage = {
   seo: {
     siteUrl: SITE_URL,
 
-    // ✅ Correct About URLs
     canonicalPath: "/about-us",
     alternateArPath: "/ar/about-us",
 
     title: "About Us | MEPCO",
     description:
-      "Learn about MEPCO’s journey, integrated operations, subsidiaries, and leadership driving sustainable growth and powering the circular economy in Saudi Arabia.",
+      "Learn about MEPCO's journey, integrated operations, subsidiaries, and leadership driving sustainable growth and powering the circular economy in Saudi Arabia.",
 
     keywords: [
       "MEPCO",
@@ -56,21 +56,18 @@ export const aboutPage = {
   // ✅ Continue Reading for About Page
   continueReadingItems: [
     {
-      title: "Our Leadership",
-      image:
-        "./l1.png",
-      href: "/about-us/leadership",
+      title: "Investor Relations",
+      image: "./l1.png",
+      href: "https://ir.mep.co/en/investor-relations/",
     },
     {
       title: "Our Subsidiaries",
-      image:
-        "/s1.webp",
+      image: "/s1.webp",
       href: "/about-us/subsidiaries",
     },
     {
       title: "Sustainability",
-      image:
-        "/ss1.jpg",
+      image: "/ss1.jpg",
       href: "/sustainability",
     },
   ],
@@ -79,7 +76,7 @@ export const aboutPage = {
   aboutIntro: {
     heading: "Who we are?",
     paragraphs: [
-      "Founded in 2000, MEPCO is one of the Middle East’s largest integrated paper manufacturers, managing the complete cycle from waste collection to paper production.",
+      "Founded in 2000, MEPCO is one of the Middle East's largest integrated paper manufacturers, managing the complete cycle from waste collection to paper production.",
       "With a workforce of over 1,200 employees, MEPCO produces more than 450,000 tons annually, expanding to 875,000 tons per year after the PM5 expansion.",
       "Through its subsidiaries WASCO, JUTHOR, and Estidama, MEPCO promotes sustainability and supports Saudi Vision 2030.",
     ],
@@ -95,6 +92,7 @@ export const aboutPage = {
       alt: "Paper Manufacturing",
     },
   },
+
   // Vision, Mission & Values Section Data for About Page
   visionValues: {
     heading: "Vision, Mission & Values",
@@ -145,7 +143,8 @@ export const aboutPage = {
       },
     ],
   },
-  // HistoryTimeline 
+
+  // HistoryTimeline
   aboutHistory: {
     heading: "Our History",
     navIcons: {
@@ -158,60 +157,54 @@ export const aboutPage = {
         year: "2000",
         title: "MEPCO Founded",
         desc: "MEPCO began in 2000 as a Limited Liability Company with a capital of 15 million Saudi Riyals.",
-        image:
-          "/history.jpg",
+        image: "/history.jpg",
       },
       {
         id: 2,
         year: "2003",
         title: "PM2 Started Production",
         desc: "PM2 started production with design capacity of 120,000 MT.",
-        image:
-          "/history.jpg",
+        image: "/history.jpg",
       },
       {
         id: 3,
         year: "2004",
         title: "WASCO Founded & PM1 Upgrade",
         desc: "Waste Collection & Recycling Co. Ltd (WASCO) was founded and PM1 was upgraded to reach a capacity of 90,000 MT.",
-        image:
-          "/history.jpg",
+        image: "/history.jpg",
       },
       {
         id: 4,
         year: "2007",
         title: "New Product Introduced",
         desc: "A new product K-POCHE was introduced to the market.",
-        image:
-          "/history.jpg",
+        image: "/history.jpg",
       },
       {
         id: 5,
         year: "2011",
         title: "Capital Raised & Conversion",
         desc: "The capital was gradually raised to 360 million Saudi Riyals in 2011, and MEPCO was converted into a closed joint-stock company.",
-        image:
-          "/history.jpg",
+        image: "/history.jpg",
       },
       {
         id: 6,
         year: "2014",
         title: "Capital Raised to 500M",
         desc: "In 2014, the capital was raised to 500 million Saudi Riyals, bringing the current capital to (50,000,000) fifty million ordinary shares.",
-        image:
-          "/history.jpg",
+        image: "/history.jpg",
       },
       {
         id: 7,
         year: "Today",
         title: "Vision 2030 Journey",
         desc: "Today, MEPCO continues its pioneering journey to be a leading Saudi model in industrial sustainability and smart manufacturing, contributing to the realization of Saudi Vision 2030.",
-        image:
-          "/history.jpg",
+        image: "/history.jpg",
       },
     ],
   },
-  //Strategy & Safety Section Data for About Page
+
+  // Strategy & Safety Section Data for About Page
   strategySafety: {
     image: {
       src: "/abt-intro.png",
@@ -278,4 +271,3 @@ export const aboutPage = {
     ],
   },
 };
-

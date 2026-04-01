@@ -36,20 +36,20 @@ export const homeData = {
     slides: [
       {
         type: "video",
-        src: "/abt.mp4",
+        src: "/0331.mp4",
         title: "MEPCO Powering the Circular Economy for Saudi Arabia.",
         buttonText: "Know About Us",
         href: "/about-us",
 
         // ✅ play only a segment of the video
-        startTime: 72, // seconds
-        endTime: 82,   // seconds
+        // startTime: 72, // seconds
+        // endTime: 82,   // seconds
 
         // ✅ loop inside the segment (50s -> 60s)
-        loopSegment: true,
+        // loopSegment: true,
 
         // (optional) if omitted, your component auto-sets delay to (end-start)*1000 = 10000ms
-        // delay: 10000,
+        delay: 32000,
       },
       {
         type: "image",
@@ -63,15 +63,15 @@ export const homeData = {
       },
       {
         type: "video",
-        src: "/abt.mp4",
+        src: "/shipping.mp4",
         title: "40+ Countries Served in Packaging and Industrial Sectors",
         buttonText: "Contact Sales",
         href: "/contact-us",
 
         // ✅ play only a segment of the video
-        startTime: 67,
-        endTime: 71,
-        loopSegment: true,
+        // startTime: 67,
+        // endTime: 71,
+        // loopSegment: true,
         // delay auto = 10000ms
       },
       {

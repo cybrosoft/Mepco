@@ -1,102 +1,56 @@
+// app/sustainability/SustainabilityReports.jsx
 "use client";
-
 import React from "react";
-import { IconDownload } from "@/components/ui/icons";
 import { sustainabilityPage } from "./data";
+import Reveal from "@/components/Reveal";
 
-const SusReports = () => {
-  const { title, paragraphs, reports, image } =
-    sustainabilityPage.sustainabilityReports;
+const SustainabilityReports = () => {
+  const { title, paragraphs, reports, image } = sustainabilityPage.sustainabilityReports;
 
   return (
-    <section className="w-full pb-14 pt-12 lg:py-16 bg-[#F9F8F3] overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex flex-col lg:flex-row lg:gap-16 items-center">
-          {/* LEFT */}
-          <div className="lg:w-3/5 flex flex-col justify-center w-full">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#2d2d2d] mb-8">
-              {title}
-            </h2>
+    <section className="w-full py-12 lg:py-20 bg-white">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
 
-            <div className="space-y-6 text-md leading-relaxed text-[#4a4a4a]">
+          {/* LEFT */}
+          <Reveal className="lg:w-3/5 flex flex-col justify-center" threshold={0.1}>
+            <h2 className="reveal-up text-3xl md:text-4xl font-bold text-[#2d2d2d] mb-8" style={{ transitionDelay: "0ms" }}>{title}</h2>
+            <div className="space-y-4 mb-8">
               {paragraphs.map((p, i) => (
-                <p key={i}>{p}</p>
+                <p key={i} className="reveal-down text-md leading-relaxed text-[#4a4a4a]"
+                  style={{ transitionDelay: `${80 + i * 80}ms` }}>{p}</p>
               ))}
             </div>
-
-            {/* Rows */}
-            <div className="mt-10 space-y-4">
-              {reports.map((r) => (
-                <a
-                  key={r.title}
-                  href={r.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group block"
-                >
-                  <div
-                    className="w-full border border-[#aeaeae] rounded-3xl px-4 py-3
-                               flex items-center justify-between gap-3
-                               transition-all duration-300
-                               group-hover:bg-white group-hover:shadow-md sm:group-hover:-translate-y-1"
-                  >
-                    {/* Left: pdf + text */}
-                    <div className="flex items-center gap-3 min-w-0 flex-1">
-                      <span className="inline-flex h-9 w-9 items-center justify-center shrink-0" aria-hidden="true">
-                        <img src="/pdf.png" alt="PDF" className="h-6 w-6 object-contain" />
-                      </span>
-
-                      <div className="min-w-0 flex-1">
-                        <p className="text-sm md:text-base font-medium text-[#2d2d2d] truncate">
-                          {r.title}
-                        </p>
-
-                        {r.note ? (
-                          <p className="mt-1 text-xs md:text-sm text-[#4a4a4a] truncate hidden sm:block">
-                            {r.note}
-                          </p>
-                        ) : null}
-                      </div>
-                    </div>
-
-                    {/* Right: size + download */}
-                    <div className="flex items-center gap-3 shrink-0">
-                      {r.size ? (
-                        <span className="text-xs md:text-sm text-neutral-600 whitespace-nowrap hidden sm:inline">
-                          {r.size}
-                        </span>
-                      ) : null}
-
-                      <span
-                        className="inline-flex h-10 w-10 items-center justify-center
-                                   text-[#01646e]
-                                   group-hover:bg-[#01646e]
-                                   group-hover:text-white
-                                   rounded-full transition"
-                        aria-hidden="true"
-                        title="Download"
-                      >
-                        <IconDownload />
-                      </span>
-                    </div>
+            <div className="space-y-3">
+              {reports.map((r, idx) => (
+                <a key={r.title} href={r.href} target="_blank" rel="noreferrer"
+                  className="reveal-card flex items-center justify-between p-4 rounded-xl border border-neutral-200 hover:border-[#01646e] hover:bg-[#f9f8f3] transition group"
+                  style={{ transitionDelay: `${200 + idx * 80}ms` }}>
+                  <div>
+                    <p className="text-sm font-medium text-[#2d2d2d] group-hover:text-[#01646e] transition">{r.title}</p>
+                    {r.note && <p className="text-xs text-neutral-500 mt-0.5">{r.note}</p>}
+                  </div>
+                  <div className="flex items-center gap-2 text-xs text-neutral-400">
+                    <span>{r.size}</span>
+                    <svg className="w-4 h-4 text-[#01646e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
                   </div>
                 </a>
               ))}
             </div>
-          </div>
+          </Reveal>
 
-          {/* RIGHT IMAGE */}
-          <div className="lg:w-2/5 w-full">
-            <img
-              src={image.src}
-              alt={image.alt}
-              className="w-full hidden lg:block lg:h-[750px] object-cover rounded-2xl shadow-xl"
-            />
-          </div>
+          {/* RIGHT – image */}
+          <Reveal className="lg:w-2/5" threshold={0.1}>
+            <img src={image.src} alt={image.alt}
+              className="reveal-card hidden lg:block w-full h-[600px] object-cover rounded-2xl shadow-xl" />
+          </Reveal>
+
         </div>
       </div>
     </section>
   );
 };
 
-export default SusReports;
+export default SustainabilityReports;

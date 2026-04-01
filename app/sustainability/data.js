@@ -147,7 +147,7 @@ export const sustainabilityPage = {
       "These efforts aim to provide a green and healthy environment for the future and support the local community in accordance with Saudi Vision 2030.",
 
     image: {
-      src: "/abt3.PNG",
+      src: "/abt3.png",
       alt: "Community initiatives",
     },
   },

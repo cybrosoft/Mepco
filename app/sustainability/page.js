@@ -33,11 +33,11 @@ export default function AboutPage() {
       <CommunityInitiatives />
       <SustainabilityReports />
       <AwardsSection />
-      
-      <CertificationsSection />
-      <section className={`bg-[#ffffff] pt-2 lg:pt-10 mx-6`}>
+            <section className={`bg-[#ffffff] pb-20 mx-6`}>
         <WhistleblowerCtaSection />
       </section>
+      <CertificationsSection />
+
       
       <ContinueReading items={sustainabilityPage.continueReadingItems} />
 

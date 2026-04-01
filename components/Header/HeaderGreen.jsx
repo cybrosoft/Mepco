@@ -1,3 +1,4 @@
+// components/Header/HeaderGreen.jsx
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
@@ -12,7 +13,6 @@ export default function HeaderGreen() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
 
-  // detect lg+
   const [isLgUp, setIsLgUp] = useState(false);
 
   useEffect(() => {
@@ -23,21 +23,15 @@ export default function HeaderGreen() {
     return () => mq.removeEventListener?.("change", set);
   }, []);
 
-  // lock body scroll when mobile menu open
   useEffect(() => {
     if (!mobileMenuOpen) return;
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
+    return () => { document.body.style.overflow = prev; };
   }, [mobileMenuOpen]);
 
-  // ESC to close mobile drawer
   useEffect(() => {
-    const onKeyDown = (e) => {
-      if (e.key === "Escape") setMobileMenuOpen(false);
-    };
+    const onKeyDown = (e) => { if (e.key === "Escape") setMobileMenuOpen(false); };
     if (mobileMenuOpen) window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [mobileMenuOpen]);
@@ -63,9 +57,9 @@ export default function HeaderGreen() {
   );
 
   return (
-    <header className="w-full z-50 bg-[#01646e] border-b border-gray-200 text-white">
+    <header className="sticky top-0 w-full z-50 bg-[#01646e] border-b border-[#015a63] text-white">
       <div className="max-w-7xl mx-auto px-5">
-        <div className="flex items-center justify-between h-[80px] lg:h-[85px] pt-0">
+        <div className="flex items-center justify-between h-[80px] lg:h-[85px]">
           {/* Logo */}
           <Link href="/" className="flex items-center h-14">
             <Image
@@ -100,18 +94,8 @@ export default function HeaderGreen() {
               aria-controls="mobile-menu-drawer"
             >
               <span className={burgerClasses}>
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               </span>
             </button>

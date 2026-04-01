@@ -1,13 +1,15 @@
+// app/home/HomeClient.jsx
 "use client";
 
 import HeaderTranspirant from "@/components/Header/HeaderTranspirant";
 import HeroSlider from "@/app/home/HeroSlider";
 import HomeAbout from "@/app/home/HomeAbout";
-import HomeProducts from "@/app/home/HomeProducts";
 import SubsidiaryCompanies from "@/app/home/SubsidiaryCompanies";
 import GlobalReachSection from "@/app/home/GlobalReachSection";
 import LatestNewsInsights from "@/app/home/LatestNewsInsights";
 import Footer from "@/components/Footer/index";
+import FadeIn from "@/components/FadeIn";
+import StickyRFQButton from "@/components/StickyRFQButton";
 
 import { homeData } from "@/app/home/data";
 
@@ -15,26 +17,39 @@ export default function HomeClient() {
   return (
     <main className="min-h-screen bg-white text-neutral-900">
       <HeaderTranspirant />
+
+      {/* Hero — no fade */}
       <HeroSlider slides={homeData.hero.slides} />
+
+
+      {/* About + animated stats */}
       <HomeAbout data={homeData.about} />
-      
-      
-      <SubsidiaryCompanies
-        heading={homeData.subsidiaries.heading}
-        description={homeData.subsidiaries.description}
-        ctaText={homeData.subsidiaries.cta.text}
-        ctaHref={homeData.subsidiaries.cta.href}
-        subsidiaries={homeData.subsidiaries.items}
-      />
-      <GlobalReachSection data={homeData.globalReach} />
-      {/*<HomeProducts
-        heading={homeData.products.heading}
-        ctaText={homeData.products.cta.text}
-        ctaHref={homeData.products.cta.href}
-        products={homeData.products.items}
-      /> */}
-      <LatestNewsInsights />
+
+      {/* Subsidiaries with hover video */}
+      <FadeIn y={40} threshold={0.08}>
+        <SubsidiaryCompanies
+          heading={homeData.subsidiaries.heading}
+          description={homeData.subsidiaries.description}
+          ctaText={homeData.subsidiaries.cta.text}
+          ctaHref={homeData.subsidiaries.cta.href}
+          subsidiaries={homeData.subsidiaries.items}
+        />
+      </FadeIn>
+
+      {/* Global Reach */}
+      <FadeIn y={40} threshold={0.08}>
+        <GlobalReachSection data={homeData.globalReach} />
+      </FadeIn>
+
+      {/* Latest News */}
+      <FadeIn y={40} threshold={0.08}>
+        <LatestNewsInsights />
+      </FadeIn>
+
       <Footer />
+
+      {/* Sticky RFQ — floats over everything */}
+      <StickyRFQButton />
     </main>
   );
 }

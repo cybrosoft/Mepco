@@ -1,159 +1,110 @@
-// AboutHistory.jsx
+// app/about-us/AboutHistoryTimeline.jsx
 "use client";
+import React, { useRef, useState, useEffect, useCallback } from "react";
+import Reveal from "@/components/Reveal";
 
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import useEmblaCarousel from "embla-carousel-react";
-
-const AboutHistory = ({ data }) => {
-  const slides = useMemo(() => data?.slides || [], [data]);
-
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    align: "start",
-    loop: false,
-    containScroll: "trimSnaps",
-  });
-
+const AboutHistoryTimeline = ({ data }) => {
+  const slides = data?.slides || [];
+  const trackRef = useRef(null);
   const [canPrev, setCanPrev] = useState(false);
-  const [canNext, setCanNext] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [canNext, setCanNext] = useState(true);
 
-  const update = useCallback(() => {
-    if (!emblaApi) return;
-    setCanPrev(emblaApi.canScrollPrev());
-    setCanNext(emblaApi.canScrollNext());
-    setSelectedIndex(emblaApi.selectedScrollSnap());
-  }, [emblaApi]);
+  const checkScroll = useCallback(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    setCanPrev(el.scrollLeft > 8);
+    setCanNext(el.scrollLeft < el.scrollWidth - el.clientWidth - 8);
+  }, []);
 
   useEffect(() => {
-    if (!emblaApi) return;
-    update();
-    emblaApi.on("select", update);
-    emblaApi.on("reInit", update);
-  }, [emblaApi, update]);
+    const el = trackRef.current;
+    if (!el) return;
+    checkScroll();
+    el.addEventListener("scroll", checkScroll, { passive: true });
+    window.addEventListener("resize", checkScroll);
+    return () => { el.removeEventListener("scroll", checkScroll); window.removeEventListener("resize", checkScroll); };
+  }, [checkScroll]);
 
-  // Matches max-w-7xl (80rem) + px-6 (1.5rem)
-  const containerLeftOffset =
-    "calc((100vw - min(80rem, 100vw)) / 2 + 1.5rem)";
-  const sliderViewportWidth = `calc(100vw - (${containerLeftOffset}))`;
-
-  const total = slides.length;
-  const progress = total <= 1 ? 0 : (selectedIndex / (total - 1)) * 100;
+  const scroll = (dir) => { trackRef.current?.scrollBy({ left: dir * 340, behavior: "smooth" }); };
 
   if (!data) return null;
 
   return (
-    <section className="w-full bg-[#f9f8f3] py-14 overflow-hidden">
-      {/* ===== Header (nav in same row) ===== */}
+    <section className="w-full bg-[#f9f8f3] py-16 lg:py-24 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="flex items-center justify-between gap-6">
-          <h2 className="text-3xl md:text-4xl font-bold leading-none text-[#111]">
-            {data.heading || "Our History"}
-          </h2>
-
-          {/* ===== Navigation ===== */}
-          {(canPrev || canNext) && (
-            <div className="flex justify-end pr-2 pl-2 lg:pr-2 relative z-30">
-              <div className="inline-flex items-center rounded-full border border-white/90 bg-black/50 backdrop-blur-[2px] px-5 py-2 shadow-sm">
-                <button
-                  onClick={() => emblaApi?.scrollPrev()}
-                  disabled={!canPrev}
-                  aria-label="Previous"
-                  className="disabled:opacity-40 p-4 -m-4"
-                >
-                  <img
-                    src={data?.navIcons?.prev || "/arrow-prev.svg"}
-                    alt=""
-                    className="h-4 w-4 opacity-95 pointer-events-none"
-                  />
-                </button>
-
-                <span className="mx-4 h-4 w-px bg-white/70 pointer-events-none" />
-
-                <button
-                  onClick={() => emblaApi?.scrollNext()}
-                  disabled={!canNext}
-                  aria-label="Next"
-                  className="disabled:opacity-40 p-4 -m-4"
-                >
-                  <img
-                    src={data?.navIcons?.next || "/arrow-next.svg"}
-                    alt=""
-                    className="h-4 w-4 opacity-95 pointer-events-none"
-                  />
-                </button>
-              </div>
+        <Reveal>
+          <div className="flex items-center justify-between mb-14">
+            <h2 className="reveal-up text-3xl md:text-4xl font-bold text-[#111]" style={{ transitionDelay: "0ms" }}>
+              {data.heading || "Our History"}
+            </h2>
+            <div className="reveal-fade inline-flex items-center gap-2" style={{ transitionDelay: "200ms" }}>
+              <button onClick={() => scroll(-1)} disabled={!canPrev} aria-label="Previous"
+                className="w-10 h-10 rounded-full border border-[#01646e] text-[#01646e] flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed hover:bg-[#01646e] hover:text-white transition">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+              </button>
+              <button onClick={() => scroll(1)} disabled={!canNext} aria-label="Next"
+                className="w-10 h-10 rounded-full border border-[#01646e] text-[#01646e] flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed hover:bg-[#01646e] hover:text-white transition">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+              </button>
             </div>
-          )}
-        </div>
+          </div>
+        </Reveal>
       </div>
 
-      {/* ===== Slider ===== */}
-      <div className="mt-10 overflow-hidden">
-        <div className="mx-auto max-w-7xl px-6">
-          <div
-            ref={emblaRef}
-            className="overflow-hidden"
-            style={{ width: sliderViewportWidth }}
-          >
-            <div className="flex gap-6">
-              {slides.map((item, idx) => (
-                <div
-                  key={item.id ?? `${item.year}-${idx}`}
-                  className="flex-none w-[78vw] sm:w-[48vw] md:w-[34vw] lg:w-[300px]"
-                >
-                  {/* Image */}
-                  <div className="relative overflow-hidden rounded-2xl h-[420px] sm:h-[440px] md:h-[440px] lg:h-[440px] bg-neutral-200">
-                    {item.image ? (
-                      <img
-                        src={item.image}
-                        alt={item.title || item.year || "History"}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : null}
-                  </div>
+      {/* Scrollable track */}
+      <div ref={trackRef} className="overflow-x-auto overflow-y-visible scrollbar-hide cursor-grab active:cursor-grabbing select-none"
+        style={{ WebkitOverflowScrolling: "touch" }}>
+        <div className="px-6 lg:px-[calc((100vw-80rem)/2+1.5rem)]" style={{ minWidth: "max-content" }}>
 
-                  {/* Year */}
-                  {item.year && (
-                    <div className="mt-5 text-[#01646e] text-lg sm:text-xl font-semibold">
-                      {item.year}
-                    </div>
-                  )}
-
-                  {/* Title */}
-                  {item.title && (
-                    <h3 className="mt-2 text-lg sm:text-xl font-semibold text-[#111]">
-                      {item.title}
-                    </h3>
-                  )}
-
-                  {/* Description */}
-                  {item.desc && (
-                    <p className="mt-2 text-sm leading-relaxed text-[#666]">
-                      {item.desc}
-                    </p>
-                  )}
-                </div>
-              ))}
-            </div>
+          {/* Top — odd items */}
+          <div className="flex">
+            {slides.map((item, idx) => (
+              <div key={`top-${item.id ?? idx}`}
+                className="w-[260px] lg:w-[300px] shrink-0 px-4 flex flex-col items-start justify-end pb-8"
+                style={{ minHeight: "140px" }}>
+                {idx % 2 !== 0 && (
+                  <>
+                    <span className="inline-block text-xs font-bold text-white bg-[#01646e] px-3 py-1 rounded-full mb-2">{item.year}</span>
+                    <h3 className="text-sm font-semibold text-[#111] leading-snug mb-1">{item.title}</h3>
+                    <p className="text-xs leading-relaxed text-[#777]">{item.desc}</p>
+                  </>
+                )}
+              </div>
+            ))}
           </div>
 
-          {/* ===== Progress Bar + slide number ===== */}
-          <div className="mt-12">
-            <div className="h-[3px] w-full bg-neutral-300 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-[#01646e] transition-all duration-300"
-                style={{ width: `${progress}%` }}
-              />
-            </div>
-
-            <div className="mt-3 text-xs text-[#777]">
-              Slide {Math.min(selectedIndex + 1, total)} of {total}
-            </div>
+          {/* Spine */}
+          <div className="flex items-center">
+            {slides.map((item, idx) => (
+              <div key={`spine-${item.id ?? idx}`} className="w-[260px] lg:w-[300px] shrink-0 flex items-center">
+                <div className={`h-[2px] flex-1 ${idx === 0 ? "bg-transparent" : "bg-[#c8c2b8]"}`} />
+                <div className="w-5 h-5 rounded-full bg-[#01646e] ring-4 ring-[#f9f8f3] border-2 border-[#01646e] z-10 shrink-0" />
+                <div className={`h-[2px] flex-1 ${idx === slides.length - 1 ? "bg-transparent" : "bg-[#c8c2b8]"}`} />
+              </div>
+            ))}
           </div>
+
+          {/* Bottom — even items */}
+          <div className="flex">
+            {slides.map((item, idx) => (
+              <div key={`bottom-${item.id ?? idx}`}
+                className="w-[260px] lg:w-[300px] shrink-0 px-4 pt-8"
+                style={{ minHeight: "140px" }}>
+                {idx % 2 === 0 && (
+                  <>
+                    <span className="inline-block text-xs font-bold text-white bg-[#01646e] px-3 py-1 rounded-full mb-2">{item.year}</span>
+                    <h3 className="text-sm font-semibold text-[#111] leading-snug mb-1">{item.title}</h3>
+                    <p className="text-xs leading-relaxed text-[#777]">{item.desc}</p>
+                  </>
+                )}
+              </div>
+            ))}
+          </div>
+
         </div>
       </div>
     </section>
   );
 };
 
-export default AboutHistory;
+export default AboutHistoryTimeline;

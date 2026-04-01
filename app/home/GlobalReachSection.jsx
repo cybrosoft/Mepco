@@ -1,6 +1,7 @@
+// app/home/GlobalReachSection.jsx
 "use client";
-
 import Image from "next/image";
+import Reveal from "@/components/Reveal";
 
 export default function GlobalReachSection({ data }) {
   const MARKERS = data?.markers || [];
@@ -8,34 +9,21 @@ export default function GlobalReachSection({ data }) {
 
   return (
     <section className="w-full bg-[#01646e]">
-      {/* ✅ Always max-w-7xl */}
       <div className="mx-auto max-w-7xl px-6 py-16">
-        {/* TEXT */}
-        <div className="max-w-lg">
-          <h2 className="text-white text-3xl md:text-4xl font-bold mb-6">{data?.heading}</h2>
-          <p className="mt-3 text-md leading-6 text-white/70">
-            {data?.description}
-          </p>
-        </div>
+        <Reveal threshold={0.1}>
+          <div className="max-w-lg">
+            <h2 className="reveal-up text-white text-3xl md:text-4xl font-bold mb-6"
+              style={{ transitionDelay: "0ms" }}>{data?.heading}</h2>
+            <p className="reveal-down mt-3 text-md leading-6 text-white/70"
+              style={{ transitionDelay: "100ms" }}>{data?.description}</p>
+          </div>
+        </Reveal>
 
-        {/* MAP (new line, same width container) */}
-        <div className="relative mt-10 w-full">
-          <div className="relative w-full aspect-[16/7]">
-            <Image
-              src={mapImage}
-              alt="Global Reach Map"
-              fill
-              priority
-              className="object-contain"
-            />
-
-            {/* Markers */}
+        <Reveal className="relative mt-10 w-full" threshold={0.08}>
+          <div className="reveal-card relative w-full aspect-[16/7]">
+            <Image src={mapImage} alt="Global Reach Map" fill priority className="object-contain" />
             {MARKERS.map((m, i) => (
-              <div
-                key={i}
-                className="absolute"
-                style={{ top: `${m.top}%`, left: `${m.left}%` }}
-              >
+              <div key={i} className="absolute" style={{ top: `${m.top}%`, left: `${m.left}%` }}>
                 <span className="relative block h-3 w-3 -translate-x-1/2 -translate-y-1/2">
                   <span className="absolute inset-0 rounded-full bg-[#22c55e]/40 animate-ping" />
                   <span className="absolute inset-0 rounded-full bg-[#22c55e]/60 blur-[2px]" />
@@ -44,7 +32,7 @@ export default function GlobalReachSection({ data }) {
               </div>
             ))}
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );
