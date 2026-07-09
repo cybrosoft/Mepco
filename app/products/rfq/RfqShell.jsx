@@ -1,6 +1,7 @@
+// app/products/rfq/RfqShell.jsx
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { PRODUCTS } from "./data";
@@ -9,11 +10,11 @@ import RfqStep2 from "./RfqStep2";
 
 export default function RfqShell() {
   const [step, setStep] = useState(1);
+  const keyCounter = useRef(0);
 
-  // Step 1
-  const [selected, setSelected] = useState([]); // [{ productId, qty, unit }]
-  const [monthlyVolume, setMonthlyVolume] = useState("");
-  const [orderType, setOrderType] = useState("trial"); // trial | production
+  // Step 1 — each entry has a unique key so same product can appear multiple times
+  // { key, productId, gsm, qty, unit }
+  const [selected, setSelected] = useState([]);
   const [targetDate, setTargetDate] = useState("");
   const [deliveryCity, setDeliveryCity] = useState("");
   const [deliveryCountry, setDeliveryCountry] = useState("");
@@ -33,8 +34,13 @@ export default function RfqShell() {
 
   const step1Valid =
     selected.length > 0 &&
-    selected.every((x) => String(x.qty).trim() !== "" && Number(x.qty) > 0 && x.unit) &&
-    String(monthlyVolume).trim() !== "" &&
+    selected.every(
+      (x) =>
+        String(x.qty).trim() !== "" &&
+        Number(x.qty) > 0 &&
+        x.unit &&
+        x.gsm !== ""
+    ) &&
     targetDate &&
     String(deliveryCity).trim() !== "" &&
     String(deliveryCountry).trim() !== "";
@@ -64,21 +70,17 @@ export default function RfqShell() {
       products: selected.map((x) => ({
         productId: x.productId,
         productName: productsById.get(x.productId)?.name,
+        gsm: x.gsm,
         qty: Number(x.qty),
         unit: x.unit,
       })),
-      monthlyVolume,
-      orderType,
       targetDate,
       deliveryLocation: { city: deliveryCity, country: deliveryCountry },
       contact: { fullName, companyName, businessEmail, phoneNumber, industry },
     };
 
     console.log("RFQ payload:", payload);
-
     // TODO: wire API
-    // await fetch("/api/rfq", { method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify(payload) })
-
     alert("RFQ submitted (demo). Next: wire /api/rfq.");
   };
 
@@ -88,13 +90,12 @@ export default function RfqShell() {
         <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
           <div>
             <h1 className="text-2xl font-semibold tracking-tight">
-                Step {step} of 2 {step === 1 ? "" : ""}
+              Step {step} of 2
             </h1>
             <p className="mt-1 text-sm text-neutral-600">
               {step === 1 ? "Select Products & Requirements" : "Contact Details"}
             </p>
           </div>
-
           <div className="flex items-center gap-2">
             <div className={`h-2 w-20 rounded-full ${step >= 1 ? "bg-[#01646e]" : "bg-neutral-200"}`} />
             <div className={`h-2 w-20 rounded-full ${step >= 2 ? "bg-[#01646e]" : "bg-neutral-200"}`} />
@@ -105,21 +106,12 @@ export default function RfqShell() {
       <div className="px-6 py-8 md:px-10">
         <AnimatePresence mode="wait">
           {step === 1 ? (
-            <motion.div
-              key="step1"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.2 }}
-            >
+            <motion.div key="step1" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.2 }}>
               <RfqStep1
                 products={PRODUCTS}
                 selected={selected}
                 setSelected={setSelected}
-                monthlyVolume={monthlyVolume}
-                setMonthlyVolume={setMonthlyVolume}
-                orderType={orderType}
-                setOrderType={setOrderType}
+                keyCounter={keyCounter}
                 targetDate={targetDate}
                 setTargetDate={setTargetDate}
                 deliveryCity={deliveryCity}
@@ -131,24 +123,13 @@ export default function RfqShell() {
               />
             </motion.div>
           ) : (
-            <motion.div
-              key="step2"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.2 }}
-            >
+            <motion.div key="step2" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.2 }}>
               <RfqStep2
-                fullName={fullName}
-                setFullName={setFullName}
-                companyName={companyName}
-                setCompanyName={setCompanyName}
-                businessEmail={businessEmail}
-                setBusinessEmail={setBusinessEmail}
-                phoneNumber={phoneNumber}
-                setPhoneNumber={setPhoneNumber}
-                industry={industry}
-                setIndustry={setIndustry}
+                fullName={fullName} setFullName={setFullName}
+                companyName={companyName} setCompanyName={setCompanyName}
+                businessEmail={businessEmail} setBusinessEmail={setBusinessEmail}
+                phoneNumber={phoneNumber} setPhoneNumber={setPhoneNumber}
+                industry={industry} setIndustry={setIndustry}
                 step2Valid={step2Valid}
                 onBack={goBack}
                 onSubmit={handleSubmit}

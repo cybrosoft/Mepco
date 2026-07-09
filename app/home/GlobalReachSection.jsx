@@ -14,7 +14,7 @@ export default function GlobalReachSection({ data }) {
           <div className="max-w-lg">
             <h2 className="reveal-up text-white text-3xl md:text-4xl font-bold mb-6"
               style={{ transitionDelay: "0ms" }}>{data?.heading}</h2>
-            <p className="reveal-down mt-3 text-md leading-6 text-white/70"
+            <p className="reveal-down mt-3 text-base leading-relaxed text-white/70"
               style={{ transitionDelay: "100ms" }}>{data?.description}</p>
           </div>
         </Reveal>

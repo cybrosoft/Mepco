@@ -1,71 +1,34 @@
 // app/about-us/AboutHistoryTimeline.jsx
 "use client";
-import React, { useRef, useState, useEffect, useCallback } from "react";
+import React from "react";
 import Reveal from "@/components/Reveal";
 
 const AboutHistoryTimeline = ({ data }) => {
   const slides = data?.slides || [];
-  const trackRef = useRef(null);
-  const [canPrev, setCanPrev] = useState(false);
-  const [canNext, setCanNext] = useState(true);
-
-  const checkScroll = useCallback(() => {
-    const el = trackRef.current;
-    if (!el) return;
-    setCanPrev(el.scrollLeft > 8);
-    setCanNext(el.scrollLeft < el.scrollWidth - el.clientWidth - 8);
-  }, []);
-
-  useEffect(() => {
-    const el = trackRef.current;
-    if (!el) return;
-    checkScroll();
-    el.addEventListener("scroll", checkScroll, { passive: true });
-    window.addEventListener("resize", checkScroll);
-    return () => { el.removeEventListener("scroll", checkScroll); window.removeEventListener("resize", checkScroll); };
-  }, [checkScroll]);
-
-  const scroll = (dir) => { trackRef.current?.scrollBy({ left: dir * 340, behavior: "smooth" }); };
-
   if (!data) return null;
 
   return (
-    <section className="w-full bg-[#f9f8f3] py-16 lg:py-24 overflow-hidden">
+    <section className="w-full bg-[#f9f8f3] py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-6">
+
+        {/* Heading */}
         <Reveal>
-          <div className="flex items-center justify-between mb-14">
-            <h2 className="reveal-up text-3xl md:text-4xl font-bold text-[#111]" style={{ transitionDelay: "0ms" }}>
-              {data.heading || "Our History"}
-            </h2>
-            <div className="reveal-fade inline-flex items-center gap-2" style={{ transitionDelay: "200ms" }}>
-              <button onClick={() => scroll(-1)} disabled={!canPrev} aria-label="Previous"
-                className="w-10 h-10 rounded-full border border-[#01646e] text-[#01646e] flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed hover:bg-[#01646e] hover:text-white transition">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
-              </button>
-              <button onClick={() => scroll(1)} disabled={!canNext} aria-label="Next"
-                className="w-10 h-10 rounded-full border border-[#01646e] text-[#01646e] flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed hover:bg-[#01646e] hover:text-white transition">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-              </button>
-            </div>
-          </div>
+          <h2 className="reveal-up text-3xl md:text-4xl font-bold text-[#111] mb-14"
+            style={{ transitionDelay: "0ms" }}>
+            {data.heading || "Our History"}
+          </h2>
         </Reveal>
-      </div>
 
-      {/* Scrollable track */}
-      <div ref={trackRef} className="overflow-x-auto overflow-y-visible scrollbar-hide cursor-grab active:cursor-grabbing select-none"
-        style={{ WebkitOverflowScrolling: "touch" }}>
-        <div className="px-6 lg:px-[calc((100vw-80rem)/2+1.5rem)]" style={{ minWidth: "max-content" }}>
-
-          {/* Top — odd items */}
+        {/* ── DESKTOP: horizontal, fits full width, no scroll ── */}
+        <div className="hidden lg:block">
+          {/* Top row — odd items (1, 3, 5 → indices 1,3,5) */}
           <div className="flex">
             {slides.map((item, idx) => (
-              <div key={`top-${item.id ?? idx}`}
-                className="w-[260px] lg:w-[300px] shrink-0 px-4 flex flex-col items-start justify-end pb-8"
-                style={{ minHeight: "140px" }}>
+              <div key={`top-${idx}`} className="flex-1 px-3 flex flex-col items-start justify-end pb-6" style={{ minHeight: "130px" }}>
                 {idx % 2 !== 0 && (
                   <>
                     <span className="inline-block text-xs font-bold text-white bg-[#01646e] px-3 py-1 rounded-full mb-2">{item.year}</span>
-                    <h3 className="text-sm font-semibold text-[#111] leading-snug mb-1">{item.title}</h3>
+                    <h3 className="text-xs font-semibold text-[#111] leading-snug mb-1">{item.title}</h3>
                     <p className="text-xs leading-relaxed text-[#777]">{item.desc}</p>
                   </>
                 )}
@@ -76,32 +39,51 @@ const AboutHistoryTimeline = ({ data }) => {
           {/* Spine */}
           <div className="flex items-center">
             {slides.map((item, idx) => (
-              <div key={`spine-${item.id ?? idx}`} className="w-[260px] lg:w-[300px] shrink-0 flex items-center">
+              <div key={`spine-${idx}`} className="flex-1 flex items-center">
                 <div className={`h-[2px] flex-1 ${idx === 0 ? "bg-transparent" : "bg-[#c8c2b8]"}`} />
-                <div className="w-5 h-5 rounded-full bg-[#01646e] ring-4 ring-[#f9f8f3] border-2 border-[#01646e] z-10 shrink-0" />
+                <div className="w-4 h-4 rounded-full bg-[#01646e] ring-4 ring-[#f9f8f3] border-2 border-[#01646e] z-10 shrink-0" />
                 <div className={`h-[2px] flex-1 ${idx === slides.length - 1 ? "bg-transparent" : "bg-[#c8c2b8]"}`} />
               </div>
             ))}
           </div>
 
-          {/* Bottom — even items */}
+          {/* Bottom row — even items (0, 2, 4, 6 → indices 0,2,4,6) */}
           <div className="flex">
             {slides.map((item, idx) => (
-              <div key={`bottom-${item.id ?? idx}`}
-                className="w-[260px] lg:w-[300px] shrink-0 px-4 pt-8"
-                style={{ minHeight: "140px" }}>
+              <div key={`bottom-${idx}`} className="flex-1 px-3 pt-6" style={{ minHeight: "130px" }}>
                 {idx % 2 === 0 && (
                   <>
                     <span className="inline-block text-xs font-bold text-white bg-[#01646e] px-3 py-1 rounded-full mb-2">{item.year}</span>
-                    <h3 className="text-sm font-semibold text-[#111] leading-snug mb-1">{item.title}</h3>
+                    <h3 className="text-xs font-semibold text-[#111] leading-snug mb-1">{item.title}</h3>
                     <p className="text-xs leading-relaxed text-[#777]">{item.desc}</p>
                   </>
                 )}
               </div>
             ))}
           </div>
-
         </div>
+
+        {/* ── MOBILE: vertical timeline ── */}
+        <div className="lg:hidden flex flex-col">
+          {slides.map((item, idx) => (
+            <div key={`mobile-${idx}`} className="flex gap-5 pb-10 last:pb-0">
+              {/* Dot + spine */}
+              <div className="flex flex-col items-center">
+                <div className="w-4 h-4 rounded-full bg-[#01646e] ring-4 ring-[#f9f8f3] border-2 border-[#01646e] shrink-0 mt-1" />
+                {idx < slides.length - 1 && (
+                  <div className="w-[2px] flex-1 bg-[#c8c2b8] mt-2" />
+                )}
+              </div>
+              {/* Content */}
+              <div className="pb-2 flex-1">
+                <span className="inline-block text-xs font-bold text-white bg-[#01646e] px-3 py-1 rounded-full mb-3">{item.year}</span>
+                <h3 className="text-sm font-semibold text-[#111] leading-snug mb-1">{item.title}</h3>
+                <p className="text-xs leading-relaxed text-[#777]">{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
       </div>
     </section>
   );

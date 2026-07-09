@@ -14,7 +14,6 @@ export default function HeaderTranspirant() {
   const [langOpen, setLangOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // detect lg+
   const [isLgUp, setIsLgUp] = useState(false);
 
   useEffect(() => {
@@ -25,14 +24,12 @@ export default function HeaderTranspirant() {
     return () => mq.removeEventListener?.("change", set);
   }, []);
 
-  // scroll detection
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
+    const onScroll = () => setScrolled(window.scrollY > 80);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // lock body scroll when mobile menu open
   useEffect(() => {
     if (!mobileMenuOpen) return;
     const prev = document.body.style.overflow;
@@ -40,7 +37,6 @@ export default function HeaderTranspirant() {
     return () => { document.body.style.overflow = prev; };
   }, [mobileMenuOpen]);
 
-  // ESC to close mobile drawer
   useEffect(() => {
     const onKeyDown = (e) => { if (e.key === "Escape") setMobileMenuOpen(false); };
     if (mobileMenuOpen) window.addEventListener("keydown", onKeyDown);
@@ -74,7 +70,11 @@ export default function HeaderTranspirant() {
   return (
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300
-        ${scrolled ? "bg-white border-b border-gray-200 text-gray-900" : "text-white"}`}
+        border-b
+        ${scrolled
+          ? "bg-white border-gray-200 text-gray-900"
+          : "border-transparent text-white"
+        }`}
       style={
         scrolled
           ? undefined
@@ -94,15 +94,29 @@ export default function HeaderTranspirant() {
         >
           {/* Logo */}
           <Link href="/" className="flex items-center h-14">
+
+            {/* Below 395px when scrolled — short logo */}
+            {scrolled && (
+              <img
+                src="/mep-logo.svg"
+                alt="Logo"
+                className="block min-[395px]:hidden w-auto h-[50px] transition-all duration-300"
+              />
+            )}
+
+            {/* 395px+ or not scrolled — full logo */}
             <Image
-              src={scrolled ? "/mep-logo.svg" : "/mep-white-logo.svg"}
+              src={scrolled ? "/logo-full.JPG" : "/mep-white-logo.svg"}
               alt="Logo"
               width={0}
               height={64}
               sizes="(max-width: 1024px) 140px, 180px"
-              className={`w-auto transition-all duration-300 ${scrolled ? "h-[52px]" : "h-[52px] md:h-14"}`}
+              className={`w-auto transition-all duration-300
+                ${scrolled ? "hidden min-[395px]:block h-[45px] md:h-[50px] lg:h-[52px]" : "block h-[52px] md:h-14"}
+              `}
               priority
             />
+
           </Link>
 
           {/* Desktop Nav */}

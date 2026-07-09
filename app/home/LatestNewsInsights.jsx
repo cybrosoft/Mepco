@@ -18,7 +18,7 @@ function NewsImageCard({ item, delay = 0 }) {
       className="reveal-card group relative block overflow-hidden rounded-3xl shadow-sm transition hover:shadow-md focus:outline-none focus:ring-2 focus:ring-black/20"
       style={{ transitionDelay: `${delay}ms` }}
     >
-      <div className="relative h-[380px] w-full sm:h-[520px]">
+      <div className="relative h-[380px] w-full sm:h-[430px]">
         <img
           src={item.image} alt={item.title} loading="lazy"
           className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
@@ -26,8 +26,8 @@ function NewsImageCard({ item, delay = 0 }) {
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 p-6">
           <p className="text-[11px] font-semibold tracking-[0.18em] uppercase text-white/80">{formatDate(item.date)}</p>
-          <h3 className="mt-2 text-[24px] text-white/80 line-clamp-2">{item.title}</h3>
-          <div className="mt-5 flex justify-end">
+          <h3 className="mt-2 text-xl text-white/70 line-clamp-2">{item.title}</h3>
+          <div className="mt-2 flex justify-end">
             <span className="flex h-6 w-14 items-center justify-center rounded-full border border-white/70 bg-black/30 text-white transition" aria-hidden="true">
               <img src="/arrow-next.svg" alt="Arrow" className="w-5 h-5" />
             </span>
@@ -46,8 +46,8 @@ export default function LatestNewsInsights() {
   const gridRef   = useReveal(0.08);
 
   return (
-    <section className="w-full bg-white">
-      <div className="mx-auto max-w-7xl px-6 py-14">
+    <section className="w-full bg-[#F9F8F3]">
+      <div className="mx-auto max-w-7xl px-6 py-12 lg:py-22">
 
         {/* Header — title up, button fade */}
         <div ref={headerRef} className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">

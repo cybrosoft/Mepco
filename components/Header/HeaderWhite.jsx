@@ -12,7 +12,6 @@ import MobileDrawer from "./MobileDrawer";
 export default function HeaderWhite() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
-
   const [isLgUp, setIsLgUp] = useState(false);
 
   useEffect(() => {
@@ -60,6 +59,7 @@ export default function HeaderWhite() {
     <header className="sticky top-0 w-full z-50 bg-white border-b border-gray-200 text-gray-900">
       <div className="max-w-7xl mx-auto px-5">
         <div className="flex items-center justify-between h-[80px]">
+
           {/* Logo */}
           <Link href="/" className="flex items-center h-14">
             <Image
@@ -77,7 +77,20 @@ export default function HeaderWhite() {
           <DesktopNav isLgUp={isLgUp} />
 
           {/* Right controls */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-5">
+
+            {/* Saudi Made badge — desktop only */}
+            <div className="hidden lg:flex items-center">
+              <Image
+                src="/saudi-made.png"
+                alt="Saudi Made"
+                width={0}
+                height={0}
+                sizes="500px"
+                className="w-auto h-[30px] object-contain"
+              />
+            </div>
+
             <LanguageSwitcher
               isLgUp={isLgUp}
               pillClasses={pillClasses}
@@ -100,6 +113,7 @@ export default function HeaderWhite() {
               </span>
             </button>
           </div>
+
         </div>
       </div>
 

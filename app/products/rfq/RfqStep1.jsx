@@ -1,3 +1,4 @@
+// app/products/rfq/RfqStep1.jsx
 "use client";
 
 import SelectedProductRow from "./SelectedProductRow";
@@ -7,11 +8,8 @@ export default function RfqStep1({
   products,
   selected,
   setSelected,
+  keyCounter,
 
-  monthlyVolume,
-  setMonthlyVolume,
-  orderType,
-  setOrderType,
   targetDate,
   setTargetDate,
   deliveryCity,
@@ -22,20 +20,26 @@ export default function RfqStep1({
   step1Valid,
   onNext,
 }) {
-  const isSelected = (productId) => selected.some((s) => s.productId === productId);
+  // Count how many times a product is in selected
+  const countSelected = (productId) =>
+    selected.filter((s) => s.productId === productId).length;
 
+  // Always add a NEW entry (even if same product exists)
   const addProduct = (productId) => {
-    if (isSelected(productId)) return;
-    setSelected((prev) => [...prev, { productId, qty: "", unit: "tons" }]);
+    keyCounter.current += 1;
+    setSelected((prev) => [
+      ...prev,
+      { key: keyCounter.current, productId, gsm: "", qty: "", unit: "tons" },
+    ]);
   };
 
-  const removeProduct = (productId) => {
-    setSelected((prev) => prev.filter((x) => x.productId !== productId));
+  const removeEntry = (key) => {
+    setSelected((prev) => prev.filter((x) => x.key !== key));
   };
 
-  const updateSelected = (productId, patch) => {
+  const updateEntry = (key, patch) => {
     setSelected((prev) =>
-      prev.map((x) => (x.productId === productId ? { ...x, ...patch } : x))
+      prev.map((x) => (x.key === key ? { ...x, ...patch } : x))
     );
   };
 
@@ -45,48 +49,40 @@ export default function RfqStep1({
       <div className="min-w-0">
         <h2 className="text-lg font-semibold">1) Select Products</h2>
         <p className="mt-1 text-sm text-neutral-600">
-          Click the button to add or remove products.
+          Click + to add a product. You can add the same product multiple times with different specs.
         </p>
 
         <div className="mt-5 space-y-3">
           {products.map((p) => {
-            const selectedNow = isSelected(p.id);
+            const count = countSelected(p.id);
+            const isSelected = count > 0;
 
             return (
               <div
                 key={p.id}
                 className={`w-full overflow-hidden rounded-2xl border p-4 transition-all duration-300 hover:shadow-md
-                  ${selectedNow ? "border-[#01646e]/30 bg-[#01646e]/5" : "border-neutral-200 bg-white"}`}
+                  ${isSelected ? "border-[#01646e]/30 bg-[#01646e]/5" : "border-neutral-200 bg-white"}`}
               >
-                {/* IMPORTANT: no justify-between, use flex-1 min-w-0 + ml-auto */}
                 <div className="flex w-full sm:items-center gap-3">
                   {/* Thumb */}
                   <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-xl border border-neutral-200 bg-white">
-                    <img
-                      src={p.image}
-                      alt={p.name}
-                      className="h-full w-full object-cover"
-                      loading="lazy"
-                    />
+                    <img src={p.image} alt={p.name} className="h-full w-full object-cover" loading="lazy" />
                   </div>
 
-                  {/* Text block: force shrink */}
+                  {/* Text */}
                   <div className="min-w-0 flex-1 overflow-hidden">
                     <div className="flex flex-wrap items-center gap-1 sm:gap-2">
                       <span className="text-sm font-semibold">{p.name}</span>
-
                       <span className="rounded-full bg-neutral-200 sm:bg-neutral-100 px-2 py-0.5 text-xs text-neutral-700">
                         {p.category}
                       </span>
-
-                      {selectedNow && (
+                      {/* X Times Selected badge */}
+                      {isSelected && (
                         <span className="rounded-full bg-[#01646e]/10 px-2 py-0.5 text-xs font-medium text-[#01646e]">
-                          Selected
+                          {count}× Selected
                         </span>
                       )}
                     </div>
-
-                    {/* Prevent overflow: clamp to 2 lines (no plugin needed) */}
                     <p className="mt-1 text-xs text-neutral-600 overflow-hidden text-ellipsis">
                       <span className="block break-words [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical] overflow-hidden">
                         {p.subtitle} • {p.usage}
@@ -94,58 +90,19 @@ export default function RfqStep1({
                     </p>
                   </div>
 
-                  {/* Action: fixed size, always right */}
+                  {/* Always + button */}
                   <div className="ml-auto shrink-0">
                     <motion.button
                       type="button"
-                      onClick={() => (selectedNow ? removeProduct(p.id) : addProduct(p.id))}
+                      onClick={() => addProduct(p.id)}
                       whileTap={{ scale: 0.92 }}
-                      whileHover={{ scale: 1.03 }} // smaller hover to avoid layout/visual jump
-                      className={`flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-full border transition-all duration-200
-                        ${
-                          selectedNow
-                            ? "border-[#01646e] bg-[#01646e]/10 text-[#01646e]"
-                            : "border-neutral-300 bg-white text-neutral-700 hover:border-[#01646e] hover:text-[#01646e]"
-                        }`}
-                      aria-label={selectedNow ? `Remove ${p.name}` : `Add ${p.name}`}
+                      whileHover={{ scale: 1.03 }}
+                      className="flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-full border transition-all duration-200 border-neutral-300 bg-white text-neutral-700 hover:border-[#01646e] hover:text-[#01646e]"
+                      aria-label={`Add ${p.name}`}
                     >
-                      <motion.div
-                        key={selectedNow ? "trash" : "plus"}
-                        initial={{ opacity: 0, rotate: -90 }}
-                        animate={{ opacity: 1, rotate: 0 }}
-                        transition={{ duration: 0.2 }}
-                        className="flex items-center justify-center"
-                      >
-                        {selectedNow ? (
-                          // Trash icon
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                            className="h-5 w-5"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M9 3.75A.75.75 0 019.75 3h4.5a.75.75 0 01.75.75V5h4.25a.75.75 0 010 1.5H4.75a.75.75 0 010-1.5H9V3.75zM6 7.5A.75.75 0 016.75 6.75h10.5a.75.75 0 01.75.75v11.25A2.25 2.25 0 0115.75 21H8.25A2.25 2.25 0 016 18.75V7.5zm3 3a.75.75 0 011.5 0v6a.75.75 0 01-1.5 0v-6zm4.5 0a.75.75 0 011.5 0v6a.75.75 0 01-1.5 0v-6z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                        ) : (
-                          // Plus icon
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                            className="h-5 w-5"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M12 4.5a.75.75 0 01.75.75v6h6a.75.75 0 010 1.5h-6v6a.75.75 0 01-1.5 0v-6h-6a.75.75 0 010-1.5h6v-6A.75.75 0 0112 4.5z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                        )}
-                      </motion.div>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
+                        <path fillRule="evenodd" d="M12 4.5a.75.75 0 01.75.75v6h6a.75.75 0 010 1.5h-6v6a.75.75 0 01-1.5 0v-6h-6a.75.75 0 010-1.5h6v-6A.75.75 0 0112 4.5z" clipRule="evenodd" />
+                      </svg>
                     </motion.button>
                   </div>
                 </div>
@@ -162,6 +119,7 @@ export default function RfqStep1({
           Provide quantities and delivery requirements.
         </p>
 
+        {/* Selected product rows */}
         <div className="mt-5 rounded-2xl md:border md:border-neutral-200 md:p-4">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-semibold">Selected Products</h3>
@@ -174,42 +132,19 @@ export default function RfqStep1({
             <div className="mt-4 space-y-3">
               {selected.map((s) => (
                 <SelectedProductRow
-                  key={s.productId}
+                  key={s.key}
                   item={s}
                   products={products}
-                  onRemove={() => removeProduct(s.productId)}
-                  onChange={(patch) => updateSelected(s.productId, patch)}
+                  onRemove={() => removeEntry(s.key)}
+                  onChange={(patch) => updateEntry(s.key, patch)}
                 />
               ))}
             </div>
           )}
         </div>
 
+        {/* Delivery fields */}
         <div className="mt-5 grid gap-4 rounded-2xl border border-neutral-200 p-4 md:grid-cols-2">
-          <div className="md:col-span-2">
-            <label className="text-xs font-medium text-neutral-700">
-              Estimated monthly volume
-            </label>
-            <input
-              value={monthlyVolume}
-              onChange={(e) => setMonthlyVolume(e.target.value)}
-              className="mt-1 w-full rounded-xl border border-neutral-200 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#01646e]"
-              placeholder="e.g., 100 tons/month"
-            />
-          </div>
-
-          <div>
-            <label className="text-xs font-medium text-neutral-700">Trial or production?</label>
-            <select
-              value={orderType}
-              onChange={(e) => setOrderType(e.target.value)}
-              className="mt-1 w-full rounded-xl border border-neutral-200 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#01646e]"
-            >
-              <option value="trial">Trial order</option>
-              <option value="production">Full production</option>
-            </select>
-          </div>
-
           <div>
             <label className="text-xs font-medium text-neutral-700">Target delivery date</label>
             <input
@@ -230,7 +165,7 @@ export default function RfqStep1({
             />
           </div>
 
-          <div>
+          <div className="md:col-span-2">
             <label className="text-xs font-medium text-neutral-700">Delivery country</label>
             <input
               value={deliveryCountry}
@@ -245,7 +180,7 @@ export default function RfqStep1({
           <p className="mt-3 text-sm text-amber-700">
             {selected.length === 0
               ? "Select at least one product to continue."
-              : "Fill all required fields to continue."}
+              : "Please fill all fields including GSM and quantity for each product."}
           </p>
         )}
 
@@ -255,10 +190,9 @@ export default function RfqStep1({
             onClick={onNext}
             disabled={!step1Valid}
             className={`rounded-full px-6 py-3 text-sm font-semibold transition
-              ${
-                step1Valid
-                  ? "bg-[#01646e] text-white hover:opacity-90"
-                  : "cursor-not-allowed bg-neutral-200 text-neutral-500"
+              ${step1Valid
+                ? "bg-[#01646e] text-white hover:opacity-90"
+                : "cursor-not-allowed bg-neutral-200 text-neutral-500"
               }`}
           >
             Next →

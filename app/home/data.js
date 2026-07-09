@@ -20,35 +20,37 @@ export const homeData = {
   globalReach: {
     heading: "Trusted Worldwide",
     description:
-      "MEPCO’s products are now serving customers in 40+ countries, supporting packaging, trade, and industry with reliable, sustainable solutions made on Saudi soil.",
-    mapImage: "/map5.png",
-    markers: [
-      { top: 36, left: 23 }, // USA
-      { top: 52, left: 31 }, // South America
-      { top: 36, left: 49 }, // Europe
-      { top: 46, left: 53 }, // Middle East
-      { top: 56, left: 55 }, // Africa
-      { top: 36, left: 69 }, // Asia
-    ],
+      "MEPCO's products are now serving customers in 40+ countries, supporting packaging, trade, and industry with reliable, sustainable solutions made on Saudi soil.",
+    mapImage: "/map-a1.png",
   },
 
   hero: {
     slides: [
+      
+      {
+        type: "video",
+        src: "/shipping.mp4",
+        title: "40+ Countries Served in Packaging and Industrial Sectors",
+        buttonText: "Request a Quote",
+        href: "/products/rfq",
+      },
+      {
+        type: "image",
+        src: "/5-2.jpg",
+        title: "Explore MEPCO's Sustainability Publications and Annual Reporting",
+        buttonText: "Explore Sustainability",
+        href: "/sustainability",
+        delay: 3000,
+      },
       {
         type: "video",
         src: "/aa1.mp4",
         title: "MEPCO Powering the Circular Economy for Saudi Arabia.",
         buttonText: "Know About Us",
         href: "/about-us",
-
-        // ✅ play only a segment of the video
-        startTime: 1, // seconds
-        endTime: 8,   // seconds
-
-        // ✅ loop inside the segment (50s -> 60s)
+        startTime: 1,
+        endTime: 8,
         loopSegment: true,
-
-        // (optional) if omitted, your component auto-sets delay to (end-start)*1000 = 10000ms
         delay: 6500,
       },
       {
@@ -57,31 +59,6 @@ export const homeData = {
         title: "#1 Containerboard Producer in the Middle East Region",
         buttonText: "Our Products",
         href: "/products",
-
-        // optional per-slide duration for images
-        delay: 5000,
-      },
-      {
-        type: "video",
-        src: "/shipping.mp4",
-        title: "40+ Countries Served in Packaging and Industrial Sectors",
-        buttonText: "Contact Sales",
-        href: "/contact-us",
-
-        // ✅ play only a segment of the video
-        // startTime: 67,
-        // endTime: 71,
-        // loopSegment: true,
-        // delay auto = 10000ms
-      },
-      {
-        type: "image",
-        src: "/5-2.jpg",
-        title: "Explore MEPCO’s Sustainability Publications and Annual Reporting",
-        buttonText: "Explore Sustainability",
-        href: "/sustainability",
-
-        // optional per-slide duration
         delay: 5000,
       },
     ],
@@ -139,5 +116,21 @@ export const homeData = {
         href: "/about-us/subsidiaries#wasco",
       },
     ],
+  },
+
+  // ✅ Careers section
+  careers: {
+    subheading: "Join Our Team",
+    heading: "Build Your Future with MEPCO",
+    description:
+      "Be part of a pioneering team driving Saudi Arabia's circular economy. At MEPCO, we invest in our people — offering growth, purpose, and the chance to make a lasting impact on industry and the environment.",
+    stats: [
+      { value: "1,200+", label: "Employees Worldwide" },
+      { value: "30+", label: "Years of Industry Leadership" },
+      { value: "40+", label: "Countries We Serve" },
+    ],
+    ctaText: "Explore Opportunities",
+    ctaHref: "https://careers.mep.co/",
+    image: "/careers.jpg",
   },
 };

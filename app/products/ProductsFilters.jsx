@@ -36,20 +36,7 @@ export default function ProductsFilters({
             {meta[category].desc}
           </p>
 
-          <div className="mt-6 flex flex-wrap items-center gap-2">
-            <span className="text-sm font-medium text-neutral-600 mr-2">
-              Filter by end use:
-            </span>
-            {endUseOptions.map((u) => (
-              <Pill
-                key={u}
-                active={selectedUse === u}
-                onClick={() => setSelectedUse(u)}
-              >
-                {u}
-              </Pill>
-            ))}
-          </div>
+
         </div>
       </div>
     </section>

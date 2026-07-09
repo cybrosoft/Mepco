@@ -31,7 +31,7 @@ export const contactPage = {
         "P.O Box 9249, Jeddah 23326 Saudi Arabia.",
       ],
       phone: "+966 12 2569600",
-      email: "info@mep.co",
+      email: "sales@mep.co",
       geoUrl:
         "https://www.google.com/maps/place/MEPCO+Head+Office/@21.5531233,39.163759,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0x5663080c36d27fad!8m2!3d21.5531233!4d39.1659477?hl=en&shorturl=1",
       geoButtonLabel: "Open Head Office Location in Maps",
@@ -47,7 +47,7 @@ export const contactPage = {
         "P.O Box 32913 Jeddah 21438, Saudi Arabia",
       ],
       phone: "+966 12 638 0111",
-      email: "info@mep.co",
+      email: "sales@mep.co",
       geoUrl:
         "https://www.google.com.sa/maps/place/MEPCO+-+%D9%85%D8%A8%D9%83%D9%88%E2%80%AD/@21.3773798,39.2183059,17z/data=!4m5!3m4!1s0x0:0xa50d1f9e7f4b80ca!8m2!3d21.3779701!4d39.2214377?hl=en&shorturl=1",
       geoButtonLabel: "Open Plant Location in Maps",

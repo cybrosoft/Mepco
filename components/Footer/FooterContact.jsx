@@ -1,5 +1,7 @@
+// components/Footer/FooterContact.jsx
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import {
   SocialIcon,
@@ -47,6 +49,14 @@ export default function FooterContact() {
         </SocialIcon>
       </div>
 
+      {/* Saudi Made badge — desktop only */}
+      <div className="mt-6 hidden lg:block">
+        <img
+          src="/saudi-made.png"
+          alt="Saudi Made"
+          className="w-auto h-[80px] object-contain"
+        />
+      </div>
 
     </div>
   );
