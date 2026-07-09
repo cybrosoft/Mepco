@@ -131,6 +131,6 @@ export const homeData = {
     ],
     ctaText: "Explore Opportunities",
     ctaHref: "https://careers.mep.co/",
-    image: "/careers.jpg",
+    image: "/careers.JPG",
   },
 };
