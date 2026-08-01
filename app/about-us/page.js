@@ -20,7 +20,21 @@ export default function AboutPage() {
     <main className="min-h-screen bg-white text-neutral-900">
       <HeaderTranspirant />
 
-      <HeroMedia {...aboutPage.hero} />
+      {/*
+        ✅ New editorial hero typography.
+        `eyebrow` + `headingLines` opt into the bold, tight, accent-colour treatment.
+        The `heading` string in aboutPage.hero is intentionally ignored while
+        headingLines is present (headingLines takes precedence in HeroMedia).
+      */}
+      <HeroMedia
+        {...aboutPage.hero}
+        eyebrow="About MEPCO"
+        headingLines={[
+          { text: "Powering" },
+          { text: "Saudi Arabia's" },
+          { text: "Circular Economy", accent: true },
+        ]}
+      />
 
       <BreadcrumbSection
         className="bg-[#f9f8f3]"

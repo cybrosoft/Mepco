@@ -19,6 +19,22 @@ export default function HeroMedia({
   heading = "",
   subtitle = "",
 
+  // ✅ NEW – editorial typography (opt-in)
+  // Small uppercase label rendered above the heading, e.g. "About MEPCO"
+  eyebrow = "",
+  // Multi-line heading. Each line: { text: string, accent?: boolean }
+  // When provided, this REPLACES `heading` and renders the bold/tight treatment.
+  // Example:
+  //   headingLines={[
+  //     { text: "Powering" },
+  //     { text: "Saudi Arabia's" },
+  //     { text: "Circular Economy", accent: true },
+  //   ]}
+  headingLines = [],
+  // Accent colour used for the eyebrow dash and any accent heading line.
+  // Brightened tint of the MEPCO brand teal (#006D77 / #01646E) for on-dark contrast.
+  accentColor = "#22C1D0",
+
   // background media
   backgroundType = "video", // "video" | "image"
   backgroundVideoSrc = "",
@@ -47,6 +63,9 @@ export default function HeroMedia({
   const [isOpen, setIsOpen] = useState(false);
 
   const embedUrl = useMemo(() => getYouTubeEmbedUrl(youtubeUrl), [youtubeUrl]);
+
+  const hasHeadingLines =
+    Array.isArray(headingLines) && headingLines.length > 0;
 
   // Background loop control (only if backgroundType is video)
   useEffect(() => {
@@ -109,12 +128,14 @@ export default function HeroMedia({
         <div className={`absolute inset-0 ${overlayClassName}`} />
 
         {/* Content */}
-        <div className={`relative mx-auto w-full max-w-7xl px-6 ${contentPaddingBottomClassName}`}>
+        <div
+          className={`relative mx-auto w-full max-w-7xl px-6 ${contentPaddingBottomClassName}`}
+        >
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
-            className="max-w-3xl"
+            className="max-w-4xl"
           >
             {/* Play Button */}
             {showPlayButton && embedUrl ? (
@@ -126,15 +147,54 @@ export default function HeroMedia({
                 className="inline-flex items-center gap-3 rounded-full bg-black/40 px-5 py-2 text-white backdrop-blur-sm border border-white/20 hover:bg-[#006D77] transition-all duration-300"
                 type="button"
               >
-                <span className="flex items-center justify-center rounded-full">▶</span>
+                <span className="flex items-center justify-center rounded-full">
+                  ▶
+                </span>
                 <span className="text-sm tracking-wide">{playButtonText}</span>
               </motion.button>
             ) : null}
 
+            {/* Eyebrow label */}
+            {eyebrow ? (
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1, duration: 0.6 }}
+                className={`flex items-center gap-3 ${
+                  showPlayButton && embedUrl ? "mt-6" : ""
+                }`}
+              >
+                <span
+                  className="h-px w-8 shrink-0"
+                  style={{ backgroundColor: accentColor }}
+                  aria-hidden="true"
+                />
+                <span className="text-xs md:text-sm font-bold uppercase tracking-[0.28em] text-white/85 drop-shadow-[0_1px_8px_rgba(0,0,0,0.5)]">
+                  {eyebrow}
+                </span>
+              </motion.div>
+            ) : null}
 
-
-            {/* Heading */}
-            {heading ? (
+            {/* Heading — editorial (multi-line) treatment */}
+            {hasHeadingLines ? (
+              <motion.h1
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15, duration: 0.7 }}
+                className="mt-4 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.03] tracking-tight text-white drop-shadow-[0_2px_16px_rgba(0,0,0,0.6)]"
+              >
+                {headingLines.map((line, i) => (
+                  <span
+                    key={i}
+                    className="block"
+                    style={line?.accent ? { color: accentColor } : undefined}
+                  >
+                    {line?.text}
+                  </span>
+                ))}
+              </motion.h1>
+            ) : heading ? (
+              /* Heading — legacy single-string treatment (unchanged) */
               <motion.h1
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -151,13 +211,11 @@ export default function HeroMedia({
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.12, duration: 0.7 }}
-                className="mt-2 text-white/90 text-base md:text-2xl drop-shadow-[0_2px_12px_rgba(0,0,0,0.55)]"
+                className="mt-3 text-white/90 text-base md:text-2xl drop-shadow-[0_2px_12px_rgba(0,0,0,0.55)]"
               >
                 {subtitle}
               </motion.p>
             ) : null}
-
-
           </motion.div>
         </div>
       </section>
