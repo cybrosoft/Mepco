@@ -19,7 +19,18 @@ export default function AboutPage() {
   return (
     <main className="min-h-screen bg-white text-neutral-900">
       <HeaderTranspirant />
-      <HeroMedia {...sustainabilityPage.hero} />
+
+      {/* ✅ New editorial hero typography */}
+      <HeroMedia
+        {...sustainabilityPage.hero}
+        eyebrow="Our Commitment"
+        headingLines={[
+          { text: "Sustainability &" },
+          { text: "Corporate Social" },
+          { text: "Responsibility", accent: true },
+        ]}
+      />
+
       <BreadcrumbSection
         className="bg-[#F9F8F3]"
         containerClassName="py-4"
@@ -33,11 +44,11 @@ export default function AboutPage() {
       <CommunityInitiatives />
       <SustainabilityReports />
       <AwardsSection />
-            <section className={`bg-[#ffffff] pb-20 mx-6`}>
+      
+      <CertificationsSection />
+      <section className={`bg-[#ffffff] pt-2 lg:pt-10 mx-6`}>
         <WhistleblowerCtaSection />
       </section>
-      <CertificationsSection />
-
       
       <ContinueReading items={sustainabilityPage.continueReadingItems} />
 

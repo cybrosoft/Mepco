@@ -153,8 +153,16 @@ export default function ProductsClient() {
       </Head>
 
       <HeaderTranspirant />
-      
-      <HeroMedia {...PRODUCTS_PAGE.hero} />
+
+      {/* ✅ New editorial hero typography */}
+      <HeroMedia
+        {...PRODUCTS_PAGE.hero}
+        eyebrow="Our Products"
+        headingLines={[
+          { text: "Engineered for Strength," },
+          { text: "Converting Efficiency", accent: true },
+        ]}
+      />
 
       {/*<BreadcrumbSection
         className="bg-white"

@@ -33,8 +33,20 @@ export default function NewsPage() {
       {/* Hero */}
       <section className="w-full bg-[#f5f5f5]">
         <div className="max-w-7xl mx-auto px-6 pt-3 pb-10 lg:pb-16">
-          <h1 className="text-4xl md:text-4xl font-bold text-[#2d2d2d] mt-4">
-            News
+          {/* ✅ New editorial heading (light-background variant) */}
+          <div className="mt-4 flex items-center gap-3">
+            <span
+              className="h-px w-8 shrink-0 bg-[#01646e]"
+              aria-hidden="true"
+            />
+            <span className="text-xs md:text-sm font-bold uppercase tracking-[0.28em] text-[#01646e]">
+              Newsroom
+            </span>
+          </div>
+
+          <h1 className="mt-3 text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.03] tracking-tight text-[#2d2d2d]">
+            <span className="block">Latest News</span>
+            <span className="block text-[#01646e]">&amp; Insights</span>
           </h1>
 
           {hero ? (

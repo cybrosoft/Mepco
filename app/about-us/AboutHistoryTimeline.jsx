@@ -1,89 +1,126 @@
 // app/about-us/AboutHistoryTimeline.jsx
-"use client";
 import React from "react";
-import Reveal from "@/components/Reveal";
+
+const Milestone = ({ item }) => (
+  <>
+    <span className="inline-block text-xs font-bold text-white bg-[#01646e] px-3 py-1 rounded-full mb-2">
+      {item.year}
+    </span>
+    <h3 className="text-sm font-semibold text-[#111] leading-snug mb-1">
+      {item.title}
+    </h3>
+    <p className="text-xs leading-relaxed text-[#777]">{item.desc}</p>
+  </>
+);
 
 const AboutHistoryTimeline = ({ data }) => {
-  const slides = data?.slides || [];
   if (!data) return null;
 
+  const slides = data?.slides || [];
+
   return (
-    <section className="w-full bg-[#f9f8f3] py-16 lg:py-24">
+    <section className="w-full bg-[#f9f8f3] py-16 lg:py-24 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6">
+        {/* Heading (unchanged) */}
+        <h2 className="text-3xl md:text-4xl font-bold text-[#111] mb-14">
+          {data.heading || "Our History"}
+        </h2>
 
-        {/* Heading */}
-        <Reveal>
-          <h2 className="reveal-up text-3xl md:text-4xl font-bold text-[#111] mb-14"
-            style={{ transitionDelay: "0ms" }}>
-            {data.heading || "Our History"}
-          </h2>
-        </Reveal>
-
-        {/* ── DESKTOP: horizontal, fits full width, no scroll ── */}
+        {/* ===== Desktop (lg+) : horizontal timeline that fits the viewport ===== */}
         <div className="hidden lg:block">
-          {/* Top row — odd items (1, 3, 5 → indices 1,3,5) */}
+          {/* Top content row — odd indices sit above the spine */}
           <div className="flex">
             {slides.map((item, idx) => (
-              <div key={`top-${idx}`} className="flex-1 px-3 flex flex-col items-start justify-end pb-6" style={{ minHeight: "130px" }}>
-                {idx % 2 !== 0 && (
-                  <>
-                    <span className="inline-block text-xs font-bold text-white bg-[#01646e] px-3 py-1 rounded-full mb-2">{item.year}</span>
-                    <h3 className="text-xs font-semibold text-[#111] leading-snug mb-1">{item.title}</h3>
-                    <p className="text-xs leading-relaxed text-[#777]">{item.desc}</p>
-                  </>
-                )}
+              <div
+                key={`top-${item.id ?? idx}`}
+                className="flex-1 min-w-0 px-3 flex flex-col items-start justify-end pb-8"
+                style={{ minHeight: "160px" }}
+              >
+                {idx % 2 !== 0 && <Milestone item={item} />}
               </div>
             ))}
           </div>
 
-          {/* Spine */}
+          {/* Spine row — line + evenly spaced dots */}
           <div className="flex items-center">
             {slides.map((item, idx) => (
-              <div key={`spine-${idx}`} className="flex-1 flex items-center">
-                <div className={`h-[2px] flex-1 ${idx === 0 ? "bg-transparent" : "bg-[#c8c2b8]"}`} />
-                <div className="w-4 h-4 rounded-full bg-[#01646e] ring-4 ring-[#f9f8f3] border-2 border-[#01646e] z-10 shrink-0" />
-                <div className={`h-[2px] flex-1 ${idx === slides.length - 1 ? "bg-transparent" : "bg-[#c8c2b8]"}`} />
+              <div
+                key={`spine-${item.id ?? idx}`}
+                className="flex-1 min-w-0 flex items-center"
+              >
+                {/* Left connecting line */}
+                <div
+                  className={`h-[2px] flex-1 ${
+                    idx === 0 ? "bg-transparent" : "bg-[#c8c2b8]"
+                  }`}
+                />
+
+                {/* Dot */}
+                <div className="shrink-0 w-4 h-4 rounded-full bg-[#01646e] ring-4 ring-[#f9f8f3] border-2 border-[#01646e]" />
+
+                {/* Right connecting line */}
+                <div
+                  className={`h-[2px] flex-1 ${
+                    idx === slides.length - 1 ? "bg-transparent" : "bg-[#c8c2b8]"
+                  }`}
+                />
               </div>
             ))}
           </div>
 
-          {/* Bottom row — even items (0, 2, 4, 6 → indices 0,2,4,6) */}
+          {/* Bottom content row — even indices sit below the spine */}
           <div className="flex">
             {slides.map((item, idx) => (
-              <div key={`bottom-${idx}`} className="flex-1 px-3 pt-6" style={{ minHeight: "130px" }}>
-                {idx % 2 === 0 && (
-                  <>
-                    <span className="inline-block text-xs font-bold text-white bg-[#01646e] px-3 py-1 rounded-full mb-2">{item.year}</span>
-                    <h3 className="text-xs font-semibold text-[#111] leading-snug mb-1">{item.title}</h3>
-                    <p className="text-xs leading-relaxed text-[#777]">{item.desc}</p>
-                  </>
-                )}
+              <div
+                key={`bottom-${item.id ?? idx}`}
+                className="flex-1 min-w-0 px-3 pt-8"
+                style={{ minHeight: "160px" }}
+              >
+                {idx % 2 === 0 && <Milestone item={item} />}
               </div>
             ))}
           </div>
         </div>
 
-        {/* ── MOBILE: vertical timeline ── */}
-        <div className="lg:hidden flex flex-col">
-          {slides.map((item, idx) => (
-            <div key={`mobile-${idx}`} className="flex gap-5 pb-10 last:pb-0">
-              {/* Dot + spine */}
-              <div className="flex flex-col items-center">
-                <div className="w-4 h-4 rounded-full bg-[#01646e] ring-4 ring-[#f9f8f3] border-2 border-[#01646e] shrink-0 mt-1" />
-                {idx < slides.length - 1 && (
-                  <div className="w-[2px] flex-1 bg-[#c8c2b8] mt-2" />
-                )}
-              </div>
-              {/* Content */}
-              <div className="pb-2 flex-1">
-                <span className="inline-block text-xs font-bold text-white bg-[#01646e] px-3 py-1 rounded-full mb-3">{item.year}</span>
-                <h3 className="text-sm font-semibold text-[#111] leading-snug mb-1">{item.title}</h3>
-                <p className="text-xs leading-relaxed text-[#777]">{item.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+        {/* ===== Mobile / tablet (below lg) : vertical timeline ===== */}
+        <ol className="lg:hidden relative">
+          {slides.map((item, idx) => {
+            const isLast = idx === slides.length - 1;
 
+            return (
+              <li key={`v-${item.id ?? idx}`} className="relative pl-9 pb-10 last:pb-0">
+                {/* Vertical connector down to the next dot */}
+                {!isLast && (
+                  <span
+                    aria-hidden="true"
+                    className="absolute left-[7px] top-2 bottom-0 w-[2px] bg-[#c8c2b8]"
+                  />
+                )}
+
+                {/* Dot */}
+                <span
+                  aria-hidden="true"
+                  className="absolute left-0 top-1 w-4 h-4 rounded-full bg-[#01646e] ring-4 ring-[#f9f8f3] border-2 border-[#01646e]"
+                />
+
+                {/* Year */}
+                <span className="inline-block text-xs font-bold text-white bg-[#01646e] px-3 py-1 rounded-full">
+                  {item.year}
+                </span>
+
+                {/* Title */}
+                <h3 className="mt-3 text-base font-semibold text-[#111] leading-snug">
+                  {item.title}
+                </h3>
+
+                {/* Description */}
+                <p className="mt-1 text-sm leading-relaxed text-[#777]">
+                  {item.desc}
+                </p>
+              </li>
+            );
+          })}
+        </ol>
       </div>
     </section>
   );
