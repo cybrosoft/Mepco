@@ -9,9 +9,9 @@ export default function WhistleblowerCtaSection({
 }) {
   return (
     <section className={`${className}`}>
-      <div className="mx-auto max-w-7xl pt-10">
+      <div className="mx-auto max-w-7xl pt-10 pb-20">
         <div className="rounded-2xl border border-neutral-200 bg-white p-6 md:p-8 shadow-sm">
-          <h2 className="text-2xl font-semibold text-neutral-900">{title}</h2>
+          <h2 className="text-3xl font-bold text-neutral-900">{title}</h2>
           <p className="mt-3 text-neutral-700 leading-relaxed">{description}</p>
 
           <div className="mt-6">

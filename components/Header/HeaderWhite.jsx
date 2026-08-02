@@ -63,7 +63,7 @@ export default function HeaderWhite() {
           {/* Logo */}
           <Link href="/" className="flex items-center h-14">
             <Image
-              src="/mep-logo.svg"
+              src="/logo-full.JPG"
               alt="Logo"
               width={0}
               height={64}
@@ -79,17 +79,7 @@ export default function HeaderWhite() {
           {/* Right controls */}
           <div className="flex items-center gap-5">
 
-            {/* Saudi Made badge — desktop only */}
-            <div className="hidden lg:flex items-center">
-              <Image
-                src="/saudi-made.png"
-                alt="Saudi Made"
-                width={0}
-                height={0}
-                sizes="500px"
-                className="w-auto h-[30px] object-contain"
-              />
-            </div>
+
 
             <LanguageSwitcher
               isLgUp={isLgUp}

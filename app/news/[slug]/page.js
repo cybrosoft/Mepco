@@ -94,7 +94,7 @@ export default async function SingleNewsPage({ params }) {
           </p>
 
           {/* Title */}
-          <h1 className="mt-3 text-3xl md:text-5xl font-medium text-[#2d2d2d] leading-tight">
+          <h1 className="mt-3 text-3xl md:text-5xl font-bold text-[#2d2d2d] leading-tight">
             {item.title}
           </h1>
 

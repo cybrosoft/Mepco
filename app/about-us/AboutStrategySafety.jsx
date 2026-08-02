@@ -22,7 +22,7 @@ const AboutStrategySafety = ({ data }) => {
   } = data;
 
   return (
-    <section className="w-full bg-white py-14">
+    <section className="w-full bg-white py-20">
       <div className="max-w-7xl mx-auto px-6">
         {/* Top Image */}
         <div className="relative overflow-hidden rounded-3xl h-[380px] bg-neutral-200">
@@ -36,10 +36,11 @@ const AboutStrategySafety = ({ data }) => {
         </div>
 
         {/* Two Columns */}
-        <div className="mt-10 lg:mt-12 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+        <div className="mt-12 lg:mt-16 grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20">
           {/* LEFT: Strategy */}
           <div>
-            <SectionHeading as="h3">
+            {/* E3: editorial label */}
+            <SectionHeading as="h3" label="Our Direction">
               {strategyHeading || "Strategy"}
             </SectionHeading>
 
@@ -95,7 +96,8 @@ const AboutStrategySafety = ({ data }) => {
 
           {/* RIGHT: Security & Safety */}
           <div>
-            <SectionHeading as="h3">
+            {/* E3: editorial label */}
+            <SectionHeading as="h3" label="Our Priority">
               {safetyHeading || "Security & Safety"}
             </SectionHeading>
 

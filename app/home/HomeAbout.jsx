@@ -5,6 +5,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { parseStatValue, useCountUp } from "@/hooks/useCountUp";
 import { useReveal } from "@/components/useReveal";
 
+import SectionHeading from "@/components/SectionHeading";
+
 function StatItem({ stat, delay = 0 }) {
   const ref = useRef(null);
   const [active, setActive] = useState(false);
@@ -47,21 +49,18 @@ const HomeAbout = ({ data }) => {
   const rightRef = useReveal(0.08);
 
   return (
-    <section className="w-full py-12 lg:py-20 bg-[#F9F8F3]">
-      <div className="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row gap-8 lg:gap-20">
+    <section className="w-full py-16 lg:py-24 bg-[#F9F8F3]">
+      <div className="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row gap-10 lg:gap-24">
 
         {/* Left — heading up, paras down */}
         <div ref={leftRef} className="lg:w-2/5 flex flex-col justify-start">
-          <h2
-            className="reveal-up text-3xl md:text-4xl font-bold text-[#2d2d2d] mb-6"
-            style={{ transitionDelay: "0ms" }}
-          >
-            {heading}
-          </h2>
+          <SectionHeading className="pb-10" color="#111" label="About MEPCO">
+                                      Who we are?
+                                  </SectionHeading>
           {paragraphs.map((text, idx) => (
             <p
               key={idx}
-              className="reveal-down text-[#4a4a4a] text-base leading-relaxed"
+              className="reveal-down text-[#4a4a4a] text-body"
               style={{ transitionDelay: `${80 + idx * 80}ms` }}
             >
               {text}
@@ -71,7 +70,7 @@ const HomeAbout = ({ data }) => {
 
         {/* Right — stat cards stagger up */}
         <div ref={rightRef} className="lg:w-3/5">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-10">
+          <div className="pt-20 grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-10">
             {statsData.map((stat, index) => (
               <StatItem key={index} stat={stat} delay={index * 100} />
             ))}

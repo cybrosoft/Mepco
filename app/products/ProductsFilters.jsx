@@ -29,7 +29,7 @@ export default function ProductsFilters({
     <section className="w-full pb-10">
       <div className="max-w-7xl mx-auto px-6">
         <div className="rounded-3xl border border-neutral-200 bg-[#F9F8F3] p-7 sm:p-9">
-          <h2 className="text-2xl sm:text-3xl font-medium text-[#2d2d2d]">
+          <h2 className="text-2xl sm:text-3xl font-bold text-[#2d2d2d]">
             {meta[category].label}
           </h2>
           <p className="mt-3 text-neutral-700 leading-relaxed max-w-4xl">

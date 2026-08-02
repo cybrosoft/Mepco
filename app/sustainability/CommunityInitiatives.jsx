@@ -3,15 +3,16 @@
 import React, { useState } from "react";
 import { sustainabilityPage } from "./data";
 import Reveal from "@/components/Reveal";
+import SectionHeading from "@/components/SectionHeading";
 
 const CommunityInitiatives = () => {
   const [openIndex, setOpenIndex] = useState(null);
   const { title, introParagraphs, items, closingParagraph, image } = sustainabilityPage.communityInitiatives;
 
   return (
-    <section className="w-full py-12 lg:py-20 bg-[#f9f8f3]">
+    <section className="w-full py-16 lg:py-24 bg-[#f9f8f3]">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
+        <div className="flex flex-col lg:flex-row gap-14 lg:gap-20 items-center">
 
           {/* LEFT – image */}
           <Reveal className="lg:w-2/5" threshold={0.1}>
@@ -21,8 +22,10 @@ const CommunityInitiatives = () => {
 
           {/* RIGHT */}
           <Reveal className="lg:w-3/5 flex flex-col justify-center" threshold={0.1}>
-            <h2 className="reveal-up text-3xl md:text-4xl font-bold text-[#2d2d2d] mb-8" style={{ transitionDelay: "0ms" }}>{title}</h2>
-            <div className="space-y-4 mb-8 text-md leading-relaxed text-[#4a4a4a]">
+            <SectionHeading className="py-10" color="#111" label="Giving Back">
+                          Community Initiatives
+                        </SectionHeading>
+            <div className="space-y-4 mb-8 text-body text-[#4a4a4a] max-w-[680px]">
               {introParagraphs?.map((p, i) => (
                 <p key={i} className="reveal-down" style={{ transitionDelay: `${80 + i * 80}ms` }}>{p}</p>
               ))}
@@ -46,7 +49,7 @@ const CommunityInitiatives = () => {
                 );
               })}
             </div>
-            <p className="reveal-down mt-10 text-md leading-relaxed text-[#4a4a4a]"
+            <p className="reveal-down mt-10 text-body text-[#4a4a4a] max-w-[680px]"
               style={{ transitionDelay: "500ms" }}>{closingParagraph}</p>
           </Reveal>
 

@@ -70,15 +70,17 @@ export default function DesktopNav({ isLgUp }) {
   // Top-level trigger (button/link) styling.
   // No hard-coded text colour — the nav INHERITS the header's colour, so it is
   // white on the transparent hero and dark once the header turns white on scroll.
+  // ✅ D1: font-medium for a slightly heavier, more refined weight.
   const trigger =
-    "relative inline-flex items-center gap-1.5 py-1 transition-colors cursor-pointer";
+    "relative inline-flex items-center gap-1.5 py-1 font-medium transition-colors cursor-pointer";
 
   const desktopDropdownBase =
     "absolute left-0 top-[calc(100%+8px)] w-64 bg-white border border-gray-300 rounded-md shadow-lg py-2 z-50";
   const desktopDropdownText = "text-gray-900";
 
   return (
-    <nav className="hidden lg:flex items-center gap-6 text-[15px]">
+    /* ✅ D1: gap-8 for more breathing room between items */
+    <nav className="hidden lg:flex items-center gap-8 text-[15px]">
       {/* Who We are */}
       <div
         className="relative group"
@@ -305,7 +307,7 @@ export default function DesktopNav({ isLgUp }) {
 
       {/* Contact Us (direct link) */}
       <Link href="/contact-us" className={`${trigger} group`}>
-        <span>Contact Us</span>
+        <span>Contact</span>
         <Underline active={isActive("/contact-us")} />
       </Link>
     </nav>

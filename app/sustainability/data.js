@@ -5,10 +5,18 @@ export const sustainabilityPage = {
     backgroundType: "image", // "video" or "image"
     backgroundImageSrc: "/5-1.jpg", // used only if backgroundType Image
     backgroundVideoSrc: "/jtr.mp4", // used only if backgroundType = "video"
+    // Kept as a fallback; ignored while headingLines is present.
     heading: "Sustainability & Corporate Social Responsibility",
-    // subtitle: "We’re here to help with inquiries, partnerships, and support.",
 
-    showPlayButton: true, // false/true if you want play or not
+    // ✅ B1 — shorter, editorial headline
+    eyebrow: "Sustainability",
+    headingLines: [
+      { text: "Building Tomorrow" },
+      { text: "Responsibly", accent: true },
+    ],
+    subtitle: "Powering the circular economy for Saudi Arabia.",
+
+    showPlayButton: false, // false/true if you want play or not
     playButtonText: "Play the Video",
     youtubeUrl: "https://www.youtube.com/watch?v=mDM8vjk_adY",
   },
@@ -63,14 +71,14 @@ export const sustainabilityPage = {
     {
       title: "About Us",
       image:
-        "/abt12.png",
+        "/ql/abt2.jpg",
       href: "/about-us",
     },
 
     {
       title: "Our Leadership",
       image:
-        "./l1.png",
+        "/ql/leadership.png",
       href: "/about-us/leadership",
     },
         {
@@ -111,7 +119,7 @@ export const sustainabilityPage = {
       },
     ],
     image: {
-      src: "/abt6.png",
+      src: "/ql/sus1.jpg",
       alt: "Paper Manufacturing",
     },
   },
@@ -147,7 +155,7 @@ export const sustainabilityPage = {
       "These efforts aim to provide a green and healthy environment for the future and support the local community in accordance with Saudi Vision 2030.",
 
     image: {
-      src: "/abt3.PNG",
+      src: "/ql/sus2.jpg",
       alt: "Community initiatives",
     },
   },
@@ -190,7 +198,7 @@ export const sustainabilityPage = {
     ],
 
     image: {
-      src: "/abt9.png",
+      src: "/ql/sus3.jpg",
       alt: "Paper Manufacturing",
     },
   },
@@ -267,7 +275,7 @@ export const sustainabilityPage = {
     ],
 
     image: {
-      src: "/abt15.png",
+      src: "/ql/sus4.jpg",
       alt: "MEPCO Awards",
     },
   },

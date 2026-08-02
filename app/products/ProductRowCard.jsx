@@ -36,7 +36,7 @@ export default function ProductRowCard({ product }) {
         <div className="p-7">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <h3 className="text-2xl font-medium text-[#2d2d2d] leading-tight">
+              <h3 className="text-2xl font-bold text-[#2d2d2d] leading-tight">
                 {p.name}
               </h3>
               <p className="mt-1 text-sm text-neutral-600">

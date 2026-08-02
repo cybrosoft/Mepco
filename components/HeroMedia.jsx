@@ -18,21 +18,17 @@ export default function HeroMedia({
   // content
   heading = "",
   subtitle = "",
+  // Optional supporting line, rendered under the subtitle at 60% white.
+  // Completes the Title (100%) → Subtitle (75%) → Description (60%) hierarchy.
+  description = "",
 
-  // ✅ NEW – editorial typography (opt-in)
+  // Editorial typography (opt-in)
   // Small uppercase label rendered above the heading, e.g. "About MEPCO"
   eyebrow = "",
   // Multi-line heading. Each line: { text: string, accent?: boolean }
   // When provided, this REPLACES `heading` and renders the bold/tight treatment.
-  // Example:
-  //   headingLines={[
-  //     { text: "Powering" },
-  //     { text: "Saudi Arabia's" },
-  //     { text: "Circular Economy", accent: true },
-  //   ]}
   headingLines = [],
   // Accent colour used for the eyebrow dash and any accent heading line.
-  // Brightened tint of the MEPCO brand teal (#006D77 / #01646E) for on-dark contrast.
   accentColor = "#22C1D0",
 
   // background media
@@ -40,13 +36,16 @@ export default function HeroMedia({
   backgroundVideoSrc = "",
   backgroundImageSrc = "",
 
-  // overlay
-  overlayClassName = "bg-black/30",
+  // overlay — ✅ B3: softer bottom-weighted gradient by default (preserves the
+  // photography up top, stays readable where the text sits at the bottom).
+  overlayClassName = "bg-gradient-to-t from-black/70 via-black/25 to-transparent",
 
   // sizing / spacing
   minHeightClassName = "min-h-[55vh]",
   topPaddingClassName = "pt-[80px]",
-  contentPaddingBottomClassName = "pb-[50px]",
+  contentPaddingBottomClassName = "pb-[70px]",
+  // ✅ B2: extra left indent for a more luxurious composition on large screens.
+  contentIndentClassName = "lg:pl-0",
 
   // loop segment (for background video)
   loop = { enabled: true, start: 68, end: 100 },
@@ -135,7 +134,7 @@ export default function HeroMedia({
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
-            className="max-w-4xl"
+            className={`max-w-4xl ${contentIndentClassName}`}
           >
             {/* Play Button */}
             {showPlayButton && embedUrl ? (
@@ -154,7 +153,7 @@ export default function HeroMedia({
               </motion.button>
             ) : null}
 
-            {/* Eyebrow label */}
+            {/* Eyebrow label — Section Label level */}
             {eyebrow ? (
               <motion.div
                 initial={{ opacity: 0, y: 12 }}
@@ -169,19 +168,19 @@ export default function HeroMedia({
                   style={{ backgroundColor: accentColor }}
                   aria-hidden="true"
                 />
-                <span className="text-xs md:text-sm font-bold uppercase tracking-[0.28em] text-white/85 drop-shadow-[0_1px_8px_rgba(0,0,0,0.5)]">
+                <span className="text-label text-white/85 drop-shadow-[0_1px_8px_rgba(0,0,0,0.5)]">
                   {eyebrow}
                 </span>
               </motion.div>
             ) : null}
 
-            {/* Heading — editorial (multi-line) treatment */}
+            {/* Heading — Hero Title level (100% white), multi-line editorial treatment */}
             {hasHeadingLines ? (
               <motion.h1
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15, duration: 0.7 }}
-                className="mt-4 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.03] tracking-tight text-white drop-shadow-[0_2px_16px_rgba(0,0,0,0.6)]"
+                className="mt-5 text-hero text-white drop-shadow-[0_2px_16px_rgba(0,0,0,0.6)]"
               >
                 {headingLines.map((line, i) => (
                   <span
@@ -194,26 +193,38 @@ export default function HeroMedia({
                 ))}
               </motion.h1>
             ) : heading ? (
-              /* Heading — legacy single-string treatment (unchanged) */
+              /* Heading — legacy single-string, now on the Hero Title scale */
               <motion.h1
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15, duration: 0.7 }}
-                className="mt-4 text-4xl md:text-5xl font-medium text-white leading-tight drop-shadow-[0_2px_12px_rgba(0,0,0,0.55)]"
+                className="mt-5 text-hero text-white drop-shadow-[0_2px_16px_rgba(0,0,0,0.6)]"
               >
                 {heading}
               </motion.h1>
             ) : null}
 
-            {/* Subtitle */}
+            {/* Subtitle — Hero Subtitle level (75% white) */}
             {subtitle ? (
               <motion.p
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.12, duration: 0.7 }}
-                className="mt-3 text-white/90 text-base md:text-2xl drop-shadow-[0_2px_12px_rgba(0,0,0,0.55)]"
+                className="mt-4 text-hero-sub text-white/75 max-w-2xl drop-shadow-[0_2px_12px_rgba(0,0,0,0.55)]"
               >
                 {subtitle}
+              </motion.p>
+            ) : null}
+
+            {/* Description — Hero Description level (60% white) */}
+            {description ? (
+              <motion.p
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.18, duration: 0.7 }}
+                className="mt-3 text-hero-desc text-white/60 max-w-xl drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)]"
+              >
+                {description}
               </motion.p>
             ) : null}
           </motion.div>

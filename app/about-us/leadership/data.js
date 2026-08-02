@@ -39,7 +39,7 @@ export const leadershipPage = {
   ],
 
   continueReadingItems: [
-    { title: "About Us",        image: "/abt12.png", href: "/about-us" },
+    { title: "About Us",        image: "/ql/abt2.jpg", href: "/about-us" },
     { title: "Our Subsidiaries",image: "/s1.webp",   href: "/about-us/subsidiaries" },
     { title: "Sustainability",  image: "/ss1.jpg",   href: "/sustainability" },
   ],

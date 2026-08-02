@@ -5,8 +5,19 @@ export const PRODUCTS_PAGE = {
     backgroundType: "image",
     backgroundImageSrc: "/products.jpg",
     backgroundVideoSrc: "/jtr.mp4",
+    // Kept as a fallback; ignored while headingLines is present.
     heading: "Products - Engineered for Strength, Converting Efficiency",
-    showPlayButton: true,
+
+    // ✅ B1 — shorter, editorial headline
+    eyebrow: "Products",
+    headingLines: [
+      { text: "Engineered" },      
+      { text: "For Stronger" },
+      { text: "Packaging", accent: true },
+    ],
+    subtitle: "Containerboard and paperboard built to perform.",
+
+    showPlayButton: false,
     playButtonText: "Play the Video",
     youtubeUrl: "https://www.youtube.com/watch?v=mDM8vjk_adY",
   },

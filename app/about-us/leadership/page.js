@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import BoardSection from "./BoardSection";
 import ManagementSection from "./ManagementSection";
 import CommitteesSection from "./CommitteesSection";
+import SectionHeading from "@/components/SectionHeading";
 
 import {
   leadershipPage,
@@ -41,13 +42,13 @@ export default function LeadershipPage() {
 
       <section className="w-full pb-12 lg:pb-16">
         <div className="max-w-7xl mx-auto px-6">
-          <h1 className="text-4xl md:text-4xl font-bold text-[#2d2d2d] mt-4">
-            {pageTitle}
-          </h1>
+          <SectionHeading className="my-10" color="#111" label="Meet the Team">
+            Our Leadership
+          </SectionHeading>
 
           {/* Tabs */}
           <div
-            className="mb-8 sm:mb-0 mt-4 md:mt-10 flex flex-col sm:inline-flex sm:flex-row 
+            className="mb-8 sm:mb-0 flex flex-col sm:inline-flex sm:flex-row 
                        bg-white p-4 sm:p-2 sm:rounded-full 
                        rounded-2xl shadow-sm border border-neutral-200"
           >
@@ -74,7 +75,7 @@ export default function LeadershipPage() {
 
           {/* Title + Intro */}
           <div className="hidden sm:block mt-10 mb-8 max-w-4xl">
-            <h2 className="text-2xl md:text-3xl font-medium text-[#2d2d2d]">
+            <h2 className="text-2xl md:text-3xl font-bold text-[#2d2d2d]">
               {activeTabData.title}
             </h2>
             <p className="mt-4 text-neutral-700 leading-relaxed">

@@ -13,6 +13,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 const YOUTUBE_URL = "https://www.youtube.com/watch?v=mDM8vjk_adY";
+const ACCENT = "#22C1D0"; // teal accent (matches other page heroes)
 
 function getYouTubeEmbed(url) {
   const match = url.match(/(?:v=|youtu\.be\/)([^&?/]+)/);
@@ -30,6 +31,29 @@ function getSlideDelay(slide, fallback = 5000) {
     return Math.round((slide.endTime - slide.startTime) * 1000);
   }
   return fallback;
+}
+
+/* Renders the title with an optional teal accent keyword (slide.accent),
+   or as explicit lines (slide.titleLines: [{ text, accent }]). */
+function renderTitle(slide) {
+  if (Array.isArray(slide.titleLines) && slide.titleLines.length) {
+    return slide.titleLines.map((l, i) => (
+      <span key={i} className="block" style={l.accent ? { color: ACCENT } : undefined}>
+        {l.text}
+      </span>
+    ));
+  }
+  if (slide.accent && typeof slide.title === "string" && slide.title.includes(slide.accent)) {
+    const [before, after] = slide.title.split(slide.accent);
+    return (
+      <>
+        {before}
+        <span style={{ color: ACCENT }}>{slide.accent}</span>
+        {after}
+      </>
+    );
+  }
+  return slide.title;
 }
 
 function VideoSegment({ slide }) {
@@ -89,37 +113,50 @@ function VideoSegment({ slide }) {
 }
 
 /**
- * SlideContent is extracted as its own component.
- * The parent passes key={activeIndex} so React fully unmounts+remounts it
- * on every slide change — this restarts the CSS keyframe animations from scratch.
+ * SlideContent — centered (horizontally + vertically), with the editorial
+ * eyebrow + big bold title (teal accent keyword) kept.
+ * Parent passes key={activeIndex} so the CSS animations restart per slide.
  */
 function SlideContent({ slide, slideIndex, onWatchClick }) {
   return (
-    <div className="absolute inset-0 bg-black/40 flex flex-col justify-center items-center text-center px-4 md:px-0">
-      {/* Title — slides UP from below */}
-      <h2 className="hero-animate-title text-3xl md:text-6xl font-bold text-white max-w-3xl mx-auto drop-shadow-lg">
-        {slide.title}
-      </h2>
+    <div className="absolute inset-0 flex items-center justify-center">
+      {/* Even overlay for centered text readability */}
+      <div className="absolute inset-0 bg-black/40" />
 
-      {/* Buttons row */}
-      <div className="mt-8 flex flex-col sm:flex-row items-center gap-3">
-        {/* Primary CTA — slides up slightly after title */}
-        <Link href={slide.href} className="hero-animate-btn">
-          <span className="inline-flex items-center justify-center rounded-full border border-white bg-white px-10 py-4 text-sm font-semibold text-[#01646e] transition-colors duration-200 hover:bg-[#01646e] hover:border-[#01646e] hover:text-white">
-            {slide.buttonText}
-          </span>
-        </Link>
+      {/* Content — centered */}
+      <div className="relative mx-auto w-full max-w-7xl px-6">
+        <div className="max-w-3xl mx-auto text-center">
+          {/* Title */}
+          <h2 className="hero-animate-title text-hero text-white drop-shadow-[0_2px_16px_rgba(0,0,0,0.6)]">
+            {renderTitle(slide)}
+          </h2>
 
-        {/* Watch Our Story — only on first slide, fades in last */}
-        {slideIndex === 0 && (
-          <button
-            onClick={onWatchClick}
-            className="hero-animate-watch inline-flex items-center gap-2 rounded-full border border-white/70 bg-white/10 backdrop-blur-sm px-7 py-4 text-sm font-semibold text-white hover:bg-white/20 transition-all duration-200"
-          >
-            <span className="flex items-center justify-center w-6 h-6 rounded-full bg-white text-[#01646e] text-xs font-bold">▶</span>
-            Watch Our Story
-          </button>
-        )}
+          {/* Optional subtitle */}
+          {slide.subtitle ? (
+            <p className="hero-animate-btn mt-4 text-hero-sub text-white/75 mx-auto max-w-2xl drop-shadow-[0_2px_12px_rgba(0,0,0,0.55)]">
+              {slide.subtitle}
+            </p>
+          ) : null}
+
+          {/* Buttons */}
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Link href={slide.href} className="hero-animate-btn">
+              <span className="inline-flex items-center justify-center rounded-full bg-white px-9 py-3.5 text-sm font-semibold text-[#01646e] transition-all duration-300 hover:bg-[#01646e] hover:text-white">
+                {slide.buttonText}
+              </span>
+            </Link>
+
+            {slideIndex === 0 && (
+              <button
+                onClick={onWatchClick}
+                className="hero-animate-watch inline-flex items-center gap-2 rounded-full border border-white/70 bg-white/10 backdrop-blur-sm px-7 py-3.5 text-sm font-semibold text-white hover:bg-white/20 transition-all duration-300"
+              >
+                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-white text-[#01646e] text-xs font-bold">▶</span>
+                Watch Our Story
+              </button>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -216,7 +253,6 @@ export default function HeroSlider({ slides = [] }) {
                   {/*
                     key={activeIndex} — when activeIndex changes, React destroys
                     and recreates SlideContent, which restarts all CSS animations.
-                    This works for every slide, every time.
                   */}
                   {activeIndex === idx && (
                     <SlideContent
@@ -230,13 +266,15 @@ export default function HeroSlider({ slides = [] }) {
               </SwiperSlide>
             ))}
 
-            {/* Arrows */}
-            <div className="absolute inset-0 flex justify-between items-end pb-[55px] max-w-7xl mx-auto w-full px-6 pt-20 z-10 pointer-events-none">
-              <div ref={prevRef} className="text-white cursor-pointer pointer-events-auto select-none border border-white rounded-[25px] px-3 py-1">
-                <Image src="/arrow-prev.svg" alt="Prev" width={20} height={14} />
-              </div>
-              <div ref={nextRef} className="text-white cursor-pointer pointer-events-auto select-none border border-white rounded-[25px] px-3 py-1">
-                <Image src="/arrow-next.svg" alt="Next" width={20} height={14} />
+            {/* Arrows — bottom-right pair */}
+            <div className="absolute inset-x-0 bottom-0 z-10 pb-8 pointer-events-none">
+              <div className="max-w-7xl mx-auto w-full px-6 flex justify-end items-center gap-3">
+                <div ref={prevRef} className="text-white cursor-pointer pointer-events-auto select-none border border-white rounded-[25px] px-3 py-1">
+                  <Image src="/arrow-prev.svg" alt="Prev" width={20} height={14} />
+                </div>
+                <div ref={nextRef} className="text-white cursor-pointer pointer-events-auto select-none border border-white rounded-[25px] px-3 py-1">
+                  <Image src="/arrow-next.svg" alt="Next" width={20} height={14} />
+                </div>
               </div>
             </div>
           </Swiper>

@@ -1,8 +1,9 @@
-// app/sustainability/CertificationsSection.jsx
 "use client";
 import React from "react";
 import { sustainabilityPage } from "./data";
 import Reveal from "@/components/Reveal";
+
+import SectionHeading from "@/components/SectionHeading";
 
 const CertificationsSection = () => {
   const { title, logos } = sustainabilityPage.certificationsSection;
@@ -11,10 +12,16 @@ const CertificationsSection = () => {
     <section className="w-full py-12 lg:py-20 bg-[#F9F8F3]">
       <div className="max-w-7xl mx-auto px-6 text-center">
         <Reveal>
-          <h2 className="reveal-up text-3xl md:text-4xl font-bold text-[#2d2d2d] mb-12" style={{ transitionDelay: "0ms" }}>
+          <SectionHeading
+            align="center"
+            color="#111"
+            label="Verified Standards"
+            className="mb-12"
+          >
             {title}
-          </h2>
+          </SectionHeading>
         </Reveal>
+
         <Reveal className="flex flex-wrap items-center justify-center gap-10" threshold={0.08}>
           {logos.map((logo, index) => (
             <div key={logo.alt}

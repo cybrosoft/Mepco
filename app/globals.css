@@ -83,6 +83,136 @@
 }
 
 /* ─────────────────────────────────────────
+   Typography scale (A1 / A2 / A4)
+   One source of truth. Fluid sizes (clamp) with the
+   approved desktop maxima as the ceiling:
+   Hero 72 · Subtitle 26 · Heading 52 · Body 18 · Small 15
+   ───────────────────────────────────────── */
+@layer components {
+  /* Hero title — 72px ceiling */
+  .text-hero {
+    font-size: clamp(2.75rem, 6vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+  }
+
+  /* Hero subtitle — 26px */
+  .text-hero-sub {
+    font-size: clamp(1.25rem, 2.5vw, 1.625rem);
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: -0.005em;
+  }
+
+  /* Hero description — 18px */
+  .text-hero-desc {
+    font-size: clamp(1rem, 1.5vw, 1.125rem);
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: 0;
+  }
+
+  /* Section label / eyebrow — 13px uppercase */
+  .text-label {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+  }
+
+  /* Section heading (h2) — 52px ceiling */
+  .text-h2 {
+    font-size: clamp(2rem, 4.5vw, 2.75rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.015em;
+  }
+
+  /* Subheading — card / accordion titles — 24px */
+  .text-subhead {
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+
+  /* Body — 18px */
+  .text-body {
+    font-size: 1.125rem;
+    font-weight: 400;
+    line-height: 1.7;
+    letter-spacing: 0;
+  }
+
+  /* Small — 15px */
+  .text-small {
+    font-size: 0.9375rem;
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: 0.01em;
+  }
+}
+
+/* ─────────────────────────────────────────
+   Buttons (E1) — refined proportions, padding,
+   soft hover lift, smooth transitions.
+   Usage: <a class="btn btn-primary">…</a>
+          <a class="btn btn-outline">…</a>
+          add "btn-sm" for a compact size.
+   ───────────────────────────────────────── */
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    padding: 0.875rem 2rem; /* py-3.5 px-8 */
+    font-size: 0.9375rem;   /* 15px */
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+                color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .btn-sm {
+    padding: 0.625rem 1.375rem;
+    font-size: 0.875rem;
+  }
+
+  /* Primary — teal fill */
+  .btn-primary {
+    background-color: #006d77;
+    color: #ffffff;
+  }
+  .btn-primary:hover {
+    background-color: #01555e;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px -10px rgba(0, 109, 119, 0.55);
+  }
+
+  /* Outline — teal outline that fills on hover (inset ring avoids layout shift) */
+  .btn-outline {
+    background-color: transparent;
+    color: #01646e;
+    box-shadow: inset 0 0 0 1px #01646e;
+  }
+  .btn-outline:hover {
+    background-color: #01646e;
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: inset 0 0 0 1px #01646e, 0 10px 24px -10px rgba(1, 100, 110, 0.5);
+  }
+}
+
+/* ─────────────────────────────────────────
    Base styles
    ───────────────────────────────────────── */
 :root {

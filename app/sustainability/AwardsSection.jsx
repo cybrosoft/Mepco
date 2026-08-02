@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { sustainabilityPage } from "./data";
 import Reveal from "@/components/Reveal";
 
+import SectionHeading from "@/components/SectionHeading";
+
 const AwardsSection = () => {
   const [openIndex, setOpenIndex] = useState(null);
   const { title, introParagraph, items, image } = sustainabilityPage.awardsSection;
@@ -16,12 +18,14 @@ const AwardsSection = () => {
           {/* LEFT – image */}
           <Reveal className="lg:w-2/5" threshold={0.1}>
             <img src={image.src} alt={image.alt}
-              className="reveal-card w-full lg:h-[750px] object-cover rounded-2xl shadow-xl" />
+              className="reveal-card w-full lg:h-[900px] object-cover rounded-2xl shadow-xl" />
           </Reveal>
 
           {/* RIGHT */}
           <Reveal className="lg:w-3/5 flex flex-col justify-center" threshold={0.1}>
-            <h2 className="reveal-up text-3xl md:text-4xl font-bold text-[#2d2d2d] mb-8" style={{ transitionDelay: "0ms" }}>{title}</h2>
+            <SectionHeading className="pb-10" color="#111" label="Recognized Excellence">
+                            Awards & Recognitions
+                        </SectionHeading>
             <p className="reveal-down text-sm md:text-base text-[#4a4a4a] leading-relaxed mb-8" style={{ transitionDelay: "100ms" }}>{introParagraph}</p>
             <div className="space-y-4">
               {items.map((item, index) => {

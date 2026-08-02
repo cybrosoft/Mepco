@@ -2,6 +2,7 @@
 "use client";
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
+import SectionHeading from "@/components/SectionHeading";
 
 export default function GlobalReachSection({ data }) {
   const MARKERS = data?.markers || [];
@@ -9,17 +10,27 @@ export default function GlobalReachSection({ data }) {
 
   return (
     <section className="w-full bg-[#01646e]">
-      <div className="mx-auto max-w-7xl px-6 py-16">
+      <div className="mx-auto max-w-7xl px-6 py-20">
         <Reveal threshold={0.1}>
           <div className="max-w-lg">
-            <h2 className="reveal-up text-white text-3xl md:text-4xl font-bold mb-6"
-              style={{ transitionDelay: "0ms" }}>{data?.heading}</h2>
-            <p className="reveal-down mt-3 text-base leading-relaxed text-white/70"
+            {/* Section title — colours tuned for the teal background */}
+            <div className="reveal-up" style={{ transitionDelay: "0ms" }}>
+              <SectionHeading
+                color="#ffffff"
+                labelColor="rgba(255,255,255,0.7)"
+                accent="rgba(255,255,255,0.85)"
+                label="Global Reach"
+              >
+                {data?.heading}
+              </SectionHeading>
+            </div>
+
+            <p className="reveal-down mt-6 text-body text-white/70"
               style={{ transitionDelay: "100ms" }}>{data?.description}</p>
           </div>
         </Reveal>
 
-        <Reveal className="relative mt-10 w-full" threshold={0.08}>
+        <Reveal className="relative mt-12 w-full" threshold={0.08}>
           <div className="reveal-card relative w-full aspect-[16/7]">
             <Image src={mapImage} alt="Global Reach Map" fill priority className="object-contain" />
             {MARKERS.map((m, i) => (

@@ -1,5 +1,6 @@
 // app/about-us/AboutHistoryTimeline.jsx
 import React from "react";
+import SectionHeading from "@/components/SectionHeading";
 
 const Milestone = ({ item }) => (
   <>
@@ -22,9 +23,9 @@ const AboutHistoryTimeline = ({ data }) => {
     <section className="w-full bg-[#f9f8f3] py-16 lg:py-24 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6">
         {/* Heading (unchanged) */}
-        <h2 className="text-3xl md:text-4xl font-bold text-[#111] mb-14">
+        <SectionHeading className="mb-14" color="#111" label="Our Journey">
           {data.heading || "Our History"}
-        </h2>
+        </SectionHeading>
 
         {/* ===== Desktop (lg+) : horizontal timeline that fits the viewport ===== */}
         <div className="hidden lg:block">

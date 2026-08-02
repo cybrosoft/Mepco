@@ -23,11 +23,11 @@ export default function AboutPage() {
       {/* ✅ New editorial hero typography */}
       <HeroMedia
         {...sustainabilityPage.hero}
-        eyebrow="Our Commitment"
+        eyebrow="Sustainability"
         headingLines={[
-          { text: "Sustainability &" },
-          { text: "Corporate Social" },
-          { text: "Responsibility", accent: true },
+          { text: "Building " },
+          { text: "Tomorrow " },
+          { text: "Responsibly", accent: true },
         ]}
       />
 

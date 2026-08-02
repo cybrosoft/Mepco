@@ -1,23 +1,28 @@
 import React from "react";
 
 /*
-  Shared section heading used across the About Us page (and reusable elsewhere).
-  Renders a large bold heading followed by a short warm-brown accent rule.
+  Shared section heading used across the site.
+  Optional small label (E3) + large heading on the shared type scale (text-h2)
+  + short warm-brown accent rule.
 
   Props:
+    - label         optional small uppercase label above the heading (e.g. "About MEPCO")
+    - labelColor    label colour (default brand teal "#006D77")
     - as            HTML tag for the heading (default "h2")
     - align         "left" | "center" (default "left")
     - color         heading text colour (default "#2d2d2d")
-    - accent        rule colour (default brand brown "#8a6240")
+    - accent        rule colour (default brand brown "#733f0a")
     - className     extra classes on the wrapper (e.g. spacing "mb-8")
     - headingClassName  extra classes on the heading element
 */
 export default function SectionHeading({
   children,
+  label = "",
+  labelColor = "#006D77",
   as: Tag = "h2",
   align = "left",
   color = "#2d2d2d",
-  accent = "#8a6240",
+  accent = "#733f0a",
   className = "",
   headingClassName = "",
 }) {
@@ -25,10 +30,16 @@ export default function SectionHeading({
 
   return (
     <div className={`${isCenter ? "text-center" : ""} ${className}`}>
-      <Tag
-        className={`text-4xl md:text-5xl font-bold leading-tight tracking-tight ${headingClassName}`}
-        style={{ color }}
-      >
+      {label ? (
+        <span
+          className="text-label block mb-3"
+          style={{ color: labelColor }}
+        >
+          {label}
+        </span>
+      ) : null}
+
+      <Tag className={`text-h2 ${headingClassName}`} style={{ color }}>
         {children}
       </Tag>
 

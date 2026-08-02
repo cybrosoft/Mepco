@@ -7,6 +7,7 @@ import HeaderWhite from "@/components/Header/HeaderWhite";
 import BreadcrumbSection from "@/components/Breadcrumbs";
 import ContinueReading from "@/components/ContinueReading";
 import Footer from "@/components/Footer";
+import SectionHeading from "@/components/SectionHeading";
 
 import { subsidiariesPage } from "./data";
 
@@ -43,9 +44,9 @@ export default function SubsidiariesPage() {
       />
       <section className="w-full pb-2">
               <div className="max-w-7xl mx-auto px-6">
-                <h1 className="text-4xl md:text-4xl font-bold text-[#2d2d2d] mt-4">
-                  Our Subsidiaries
-          </h1>
+                <SectionHeading className="my-10" color="#111" label="The MEPCO Group">
+                Our Subsidiaries
+              </SectionHeading>
           <p className="mt-4 text-neutral-700 leading-relaxed">
                     Our Subsidiaries Play a Strategic Role in Strengthening our Integrated Value Chain.
                   </p>

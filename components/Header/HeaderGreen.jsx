@@ -63,7 +63,7 @@ export default function HeaderGreen() {
           {/* Logo */}
           <Link href="/" className="flex items-center h-14">
             <Image
-              src="/mep-white-logo.svg"
+              src="/logo-full.png"
               alt="Logo"
               width={0}
               height={64}

@@ -9,7 +9,7 @@ export const aboutPage = {
 
     heading: "Powering the Circular Economy for Saudi Arabia.",
 
-    showPlayButton: true,
+    showPlayButton: false,
     playButtonText: "Play the Video",
     youtubeUrl: "https://www.youtube.com/watch?v=mDM8vjk_adY",
   },
@@ -57,7 +57,7 @@ export const aboutPage = {
   continueReadingItems: [
     {
       title: "Investor Relations",
-      image: "./l1.png",
+      image: "/ql/invest.png",
       href: "https://ir.mep.co/en/investor-relations/",
     },
     {
@@ -88,7 +88,7 @@ export const aboutPage = {
       { value: "40+", label: "Countries served in packaging and industrial sectors" },
     ],
     image: {
-      src: "/abt1.png",
+      src: "/ql/abt1.jpg",
       alt: "Paper Manufacturing",
     },
   },
@@ -98,7 +98,7 @@ export const aboutPage = {
     heading: "Vision, Mission & Values",
 
     image: {
-      src: "/abt12.png",
+      src: "/ql/abt2.jpg",
       alt: "Manufacturing",
     },
 
@@ -207,7 +207,7 @@ export const aboutPage = {
   // Strategy & Safety Section Data for About Page
   strategySafety: {
     image: {
-      src: "/abt-intro.png",
+      src: "/ql/abt3.png",
       alt: "Strategy and Safety",
     },
 

@@ -44,7 +44,7 @@ export default function NewsPage() {
             </span>
           </div>
 
-          <h1 className="mt-3 text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.03] tracking-tight text-[#2d2d2d]">
+          <h1 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.03] tracking-tight text-[#2d2d2d]">
             <span className="block">Latest News</span>
             <span className="block text-[#01646e]">&amp; Insights</span>
           </h1>
@@ -68,7 +68,7 @@ export default function NewsPage() {
                   <span className="text-[#01646e]">NEWS</span> - {formatDate(hero.date)}
                 </p>
 
-                <h2 className="mt-3 text-3xl md:text-4xl font-medium text-[#2d2d2d] leading-tight">
+                <h2 className="mt-3 text-3xl md:text-4xl font-bold text-[#2d2d2d] leading-tight">
                   {hero.title}
                 </h2>
 

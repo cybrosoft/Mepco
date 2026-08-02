@@ -4,6 +4,7 @@
 import HeaderGreen from "@/components/Header/HeaderGreen";
 import Footer from "@/components/Footer";
 import BreadcrumbSection from "@/components/Breadcrumbs";
+import SectionHeading from "@/components/SectionHeading";
 
 import RfqShell from "./RfqShell";
 
@@ -24,10 +25,10 @@ export default function RfqPage() {
 
       <section className="w-full pb-2 bg-[#f9f8f3]">
         <div className="max-w-7xl mx-auto px-6">
-          <h1 className="text-4xl md:text-4xl font-bold text-[#2d2d2d]">
+          <SectionHeading className="py-10" color="#111" label="Tell Us Your Needs">
             Request a Quote
-          </h1>
-          <p className="mt-4 text-neutral-700 leading-relaxed">
+          </SectionHeading>
+          <p className="text-neutral-700 leading-relaxed">
             Select products and share requirements to receive a tailored quote.
           </p>
         </div>

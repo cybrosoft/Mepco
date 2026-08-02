@@ -157,10 +157,11 @@ export default function ProductsClient() {
       {/* ✅ New editorial hero typography */}
       <HeroMedia
         {...PRODUCTS_PAGE.hero}
-        eyebrow="Our Products"
+        eyebrow="Products"
         headingLines={[
-          { text: "Engineered for Strength," },
-          { text: "Converting Efficiency", accent: true },
+          { text: "Engineered," },
+          { text: "For Stronger," },
+          { text: "Packaging", accent: true },
         ]}
       />
 
@@ -195,7 +196,7 @@ export default function ProductsClient() {
           <div className="mt-12 rounded-3xl border border-neutral-200 bg-[#F9F8F3] p-8 sm:p-10">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
               <div>
-                <h2 className="text-2xl sm:text-3xl font-medium text-[#2d2d2d]">
+                <h2 className="text-2xl sm:text-3xl font-bold text-[#2d2d2d]">
                   {PRODUCTS_CTA.title}
                 </h2>
                 <p className="mt-3 text-neutral-700 leading-relaxed max-w-2xl">

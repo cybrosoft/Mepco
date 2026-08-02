@@ -8,12 +8,12 @@ const VisionValues = ({ data }) => {
 
   if (!data) return null;
 
-  const { heading, image, items } = data;
+  const { heading, label, image, items } = data;
 
   return (
-    <section className="w-full bg-white pt-2 lg:pt-4 pb-16">
+    <section className="w-full bg-white pt-2 lg:pt-4 pb-20">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="mt-12 grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-16 items-stretch">
+        <div className="mt-12 grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-20 items-stretch">
           
           {/* LEFT: Image */}
           <div className="lg:col-span-2">
@@ -30,7 +30,10 @@ const VisionValues = ({ data }) => {
 
           {/* RIGHT */}
           <div className="lg:col-span-3 flex flex-col justify-center">
-            <SectionHeading className="mb-8">{heading}</SectionHeading>
+            {/* E3: editorial label (data.label overrides the default) */}
+            <SectionHeading className="mb-8" label={label || "What Guides Us"}>
+              {heading}
+            </SectionHeading>
 
             <div className="space-y-4">
               {items?.map((item, index) => {

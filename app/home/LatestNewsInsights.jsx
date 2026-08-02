@@ -4,6 +4,7 @@
 import Link from "next/link";
 import { getAllNews } from "@/app/news/data";
 import { useReveal } from "@/components/useReveal";
+import SectionHeading from "@/components/SectionHeading";
 
 function formatDate(iso) {
   const d = new Date(iso);
@@ -47,19 +48,21 @@ export default function LatestNewsInsights() {
 
   return (
     <section className="w-full bg-[#F9F8F3]">
-      <div className="mx-auto max-w-7xl px-6 py-12 lg:py-22">
+      <div className="mx-auto max-w-7xl px-6 py-16 lg:py-24">
 
-        {/* Header — title up, button fade */}
+        {/* Header — title (label + heading) up, button fade */}
         <div ref={headerRef} className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <h2
-            className="reveal-up text-3xl md:text-4xl font-bold text-[#2d2d2d]"
-            style={{ transitionDelay: "0ms" }}
-          >
-            Latest News &amp; Insights
-          </h2>
+          {/* Section title with editorial label — reveal preserved via wrapper */}
+          <div className="reveal-up" style={{ transitionDelay: "0ms" }}>
+            <SectionHeading color="#111" label="Newsroom">
+              Latest News &amp; Insights
+            </SectionHeading>
+          </div>
+
+          {/* E1: refined button */}
           <Link
             href="/news"
-            className="reveal-fade self-start rounded-full border border-[#01646e] bg-[#01646e] px-8 py-3 text-sm font-medium text-white transition hover:bg-[#01555e]"
+            className="reveal-fade self-start btn btn-primary"
             style={{ transitionDelay: "220ms" }}
           >
             More News &amp; Insights
@@ -67,7 +70,7 @@ export default function LatestNewsInsights() {
         </div>
 
         {/* Cards — stagger one by one */}
-        <div ref={gridRef} className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div ref={gridRef} className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {FEATURED.map((item, i) => (
             <NewsImageCard key={item.slug} item={item} delay={i * 150} />
           ))}

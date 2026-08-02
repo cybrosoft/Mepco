@@ -119,7 +119,7 @@ export default function ContactUsPage() {
               <div className={`rounded-3xl border ${BORDER} bg-white p-7`}>
                 {/* Head Office */}
                 <div>
-                  <p className="text-lg font-semibold text-neutral-900">{headOffice.title}</p>
+                  <p className="text-xl font-bold text-neutral-900">{headOffice.title}</p>
 
                   {headOffice.addressLines?.map((line, i) => (
                     <p
@@ -163,7 +163,7 @@ export default function ContactUsPage() {
 
                 {/* Plant */}
                 <div className="pt-2 mt-8 border-t border-[#f0f0f0]">
-                  <p className="text-lg mt-4 font-semibold text-neutral-900">{plant.title}</p>
+                  <p className="text-xl mt-4 font-bold text-neutral-900">{plant.title}</p>
 
                   {plant.addressLines?.map((line, i) => (
                     <p
@@ -209,7 +209,7 @@ export default function ContactUsPage() {
             {/* Right: Form */}
             <div className="lg:col-span-7">
             <div className={`rounded-3xl border ${BORDER} bg-white p-7`}>
-                <h2 className="text-xl font-medium text-[#2d2d2d]">Send a message</h2>
+                <h2 className="text-2xl font-bold text-[#2d2d2d]">Send a message</h2>
                 <p className="mt-2 text-sm text-neutral-700">
                 Fill out the form and we’ll get back to you.
                 </p>

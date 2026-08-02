@@ -5,6 +5,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import Link from "next/link";
 import useEmblaCarousel from "embla-carousel-react";
 import { useReveal } from "@/components/useReveal";
+import SectionHeading from "@/components/SectionHeading";
 
 function splitName(name = "") {
   const parts = name.split(" – ");
@@ -106,10 +107,10 @@ const SubsidiaryCompanies = ({
         {/* Header */}
         <div ref={headerRef} className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 lg:gap-10 pb-4">
           <div className="w-full max-w-none lg:max-w-xl">
-            <h2 className="reveal-up text-3xl md:text-4xl font-bold text-[#2d2d2d] mb-6" style={{ transitionDelay: "0ms" }}>
-              {heading}
-            </h2>
-            <p className="reveal-down text-base leading-relaxed text-[#555] w-full lg:max-w-md" style={{ transitionDelay: "100ms" }}>
+            <SectionHeading className="pb-10" color="#111" label="The MEPCO Group">
+                                                  Subsidiary Companies
+                                              </SectionHeading>
+            <p className="reveal-down text-base leading-relaxed text-[#555] w-full lg:max-w-xl" style={{ transitionDelay: "100ms" }}>
               {description}
             </p>
           </div>

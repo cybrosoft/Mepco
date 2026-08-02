@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import SectionHeading from "@/components/SectionHeading";
 
 const items = [
   {
@@ -30,9 +31,10 @@ const ContinueReading = () => {
       <div className="max-w-7xl mx-auto px-6">
 
         {/* Section Title */}
-        <h2 className="text-3xl md:text-4xl font-medium text-neutral-900 mb-12">
-          Continue Reading
-        </h2>
+
+        <SectionHeading className="mb-14" color="#111" label="What is Next?">
+          {data.heading || "Continue Reading"}
+        </SectionHeading>
 
         {/* Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

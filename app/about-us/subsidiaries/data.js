@@ -103,7 +103,7 @@ export const subsidiariesPage = {
     {
       title: "About Us",
       image:
-        "/abt12.png",
+        "/ql/abt2.jpg",
       href: "/about-us",
     },
     {

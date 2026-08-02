@@ -89,7 +89,7 @@ export default function RfqShell() {
       <div className="border-b border-neutral-200 px-6 py-6 md:px-10">
         <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
           <div>
-            <h1 className="text-2xl font-semibold tracking-tight">
+            <h1 className="text-3xl font-semibold tracking-tight">
               Step {step} of 2
             </h1>
             <p className="mt-1 text-sm text-neutral-600">

@@ -1,8 +1,8 @@
 import React from "react";
 
-/* Breadcrumb colour tokens (sampled from the approved reference) */
+/* Breadcrumb colour tokens */
 const TEXT_COLOR = "#2d2d2d"; // Home + intermediate (clickable) crumbs
-const ACTIVE_COLOR = "#8a6240"; // current page (last crumb) — warm brown/bronze
+const ACTIVE_COLOR = "#733f0a"; // current page (last crumb) — warm brown
 const SEP_COLOR = "#c0bdb5"; // chevron separator — soft warm grey
 
 function HomeIcon({ className = "" }) {

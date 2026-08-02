@@ -26,18 +26,22 @@ export const homeData = {
 
   hero: {
     slides: [
-      
+
       {
         type: "video",
         src: "/shipping.mp4",
+        eyebrow: "Global Reach",
         title: "40+ Countries Served in Packaging and Industrial Sectors",
+        accent: "40+ Countries",
         buttonText: "Request a Quote",
         href: "/products/rfq",
       },
       {
         type: "image",
         src: "/5-2.jpg",
+        eyebrow: "Sustainability",
         title: "Explore MEPCO's Sustainability Publications and Annual Reporting",
+        accent: "Sustainability",
         buttonText: "Explore Sustainability",
         href: "/sustainability",
         delay: 3000,
@@ -45,7 +49,9 @@ export const homeData = {
       {
         type: "video",
         src: "/aa1.mp4",
+        eyebrow: "About MEPCO",
         title: "MEPCO Powering the Circular Economy for Saudi Arabia.",
+        accent: "Circular Economy",
         buttonText: "Know About Us",
         href: "/about-us",
         startTime: 1,
@@ -56,7 +62,9 @@ export const homeData = {
       {
         type: "image",
         src: "/hero2.jpg",
+        eyebrow: "Our Products",
         title: "#1 Containerboard Producer in the Middle East Region",
+        accent: "#1 Containerboard",
         buttonText: "Our Products",
         href: "/products",
         delay: 5000,
@@ -100,21 +108,22 @@ export const homeData = {
       {
         id: 1,
         name: "JUTHOR – Tissue Manufacturing Company",
-        image: "/sub-juthor.png",
+        image: "/ql/v/1.png",
         href: "/about-us/subsidiaries#juthor",
-      },
-      {
-        id: 2,
-        name: "Estidama – Environmental & Waste Management Solutions",
-        image: "/sub-estidama.png",
-        href: "/about-us/subsidiaries#estidama",
       },
       {
         id: 3,
         name: "WASCO – Waste Management & Recycling",
-        image: "/sub-wasco.png",
+        image: "/ql/v/2.png",
         href: "/about-us/subsidiaries#wasco",
       },
+      {
+        id: 2,
+        name: "Estidama – Environmental & Waste Management Solutions",
+        image: "/ql/v/3.png",
+        href: "/about-us/subsidiaries#estidama",
+      },
+
     ],
   },
 
@@ -131,6 +140,6 @@ export const homeData = {
     ],
     ctaText: "Explore Opportunities",
     ctaHref: "https://careers.mep.co/",
-    image: "/careers.JPG",
+    image: "/ql/career.jpg",
   },
 };

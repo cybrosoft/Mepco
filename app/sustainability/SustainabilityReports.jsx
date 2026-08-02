@@ -4,20 +4,25 @@ import React from "react";
 import { sustainabilityPage } from "./data";
 import Reveal from "@/components/Reveal";
 
+import SectionHeading from "@/components/SectionHeading";
+
 const SustainabilityReports = () => {
   const { title, paragraphs, reports, image } = sustainabilityPage.sustainabilityReports;
 
   return (
-    <section className="w-full py-12 lg:py-20 bg-white">
+    <section className="w-full py-16 lg:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
+        <div className="flex flex-col lg:flex-row gap-14 lg:gap-20 items-center">
 
           {/* LEFT */}
           <Reveal className="lg:w-3/5 flex flex-col justify-center" threshold={0.1}>
-            <h2 className="reveal-up text-3xl md:text-4xl font-bold text-[#2d2d2d] mb-8" style={{ transitionDelay: "0ms" }}>{title}</h2>
-            <div className="space-y-4 mb-8">
+            
+            <SectionHeading className="pb-10" color="#111" label="Our Progress">
+                Sustainability Reports
+            </SectionHeading>
+            <div className="space-y-4 mb-8 max-w-[680px]">
               {paragraphs.map((p, i) => (
-                <p key={i} className="reveal-down text-md leading-relaxed text-[#4a4a4a]"
+                <p key={i} className="reveal-down text-body text-[#4a4a4a]"
                   style={{ transitionDelay: `${80 + i * 80}ms` }}>{p}</p>
               ))}
             </div>
@@ -44,7 +49,7 @@ const SustainabilityReports = () => {
           {/* RIGHT – image */}
           <Reveal className="lg:w-2/5" threshold={0.1}>
             <img src={image.src} alt={image.alt}
-              className="reveal-card hidden lg:block w-full h-[600px] object-cover rounded-2xl shadow-xl" />
+              className="reveal-card hidden lg:block w-full h-[750px] object-cover rounded-2xl shadow-xl" />
           </Reveal>
 
         </div>

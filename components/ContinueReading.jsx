@@ -3,16 +3,15 @@
 import React from "react";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
+import SectionHeading from "@/components/SectionHeading";
 
 export default function ContinueReading({ items = [] }) {
   return (
     <section className="w-full bg-[#f5f5f5] py-16">
       <div className="max-w-7xl mx-auto px-6">
-        <Reveal>
-          <h2 className="reveal-up text-3xl md:text-4xl font-medium text-neutral-900 mb-12">
-            Continue Reading
-          </h2>
-        </Reveal>
+<SectionHeading className="mb-14" color="#111" label="What is Next?">
+  Continue Reading
+</SectionHeading>
 
         <Reveal threshold={0.08}>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
