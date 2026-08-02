@@ -106,7 +106,7 @@ export default function HeaderTranspirant() {
 
             {/* 395px+ or not scrolled — full logo */}
             <Image
-              src={scrolled ? "/logo-full.JPG" : "/mep-white-logo.svg"}
+              src={scrolled ? "/logo-full.JPG" : "/logo-full.png"}
               alt="Logo"
               width={0}
               height={64}
