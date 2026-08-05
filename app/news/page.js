@@ -6,7 +6,6 @@ import HeaderGreen from "@/components/Header/HeaderGreen";
 import BreadcrumbSection from "@/components/Breadcrumbs";
 import Footer from "@/components/Footer/index";
 import { getAllNews } from "./data";
-import HeaderWhite from "@/components/Header/HeaderWhite";
 
 const PAGE_SIZE = 9;
 
@@ -29,7 +28,7 @@ export default function NewsPage() {
 
   return (
     <main className="w-full bg-white">
-      <HeaderWhite />
+      <HeaderGreen />
 
       {/* Hero */}
       <section className="w-full bg-[#f5f5f5]">
