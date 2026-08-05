@@ -152,7 +152,7 @@ export default function ProductsClient() {
         />
       </Head>
 
-      <HeaderTranspirant />
+      <HeaderWhite />
 
       {/* ✅ New editorial hero typography */}
       <HeroMedia

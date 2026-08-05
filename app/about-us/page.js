@@ -14,11 +14,12 @@ import HeroMedia from "@/components/HeroMedia";
 import ContinueReading from "@/components/ContinueReading";
 import { aboutPage } from "./data";
 import HeaderTranspirant from "@/components/Header/HeaderTranspirant";
+import HeaderWhite from "@/components/Header/HeaderWhite";
 
 export default function AboutPage() {
   return (
     <main className="min-h-screen bg-white text-neutral-900">
-      <HeaderTranspirant />
+      <HeaderWhite />
 
       {/*
         ✅ New editorial hero typography.

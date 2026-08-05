@@ -13,11 +13,12 @@ import FadeIn from "@/components/FadeIn";
 import StickyRFQButton from "@/components/StickyRFQButton";
 
 import { homeData } from "@/app/home/data";
+import HeaderWhite from "@/components/Header/HeaderWhite";
 
 export default function HomeClient() {
   return (
     <main className="min-h-screen bg-white text-neutral-900">
-      <HeaderTranspirant />
+      <HeaderWhite />
 
       {/* Hero */}
       <HeroSlider slides={homeData.hero.slides} />
