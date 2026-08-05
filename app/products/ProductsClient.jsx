@@ -11,8 +11,6 @@ import ProductsHeader from "./ProductsHeader";
 import ProductsFilters from "./ProductsFilters";
 import ProductRowCard from "./ProductRowCard";
 
-import HeaderTranspirant from "@/components/Header/HeaderTranspirant";
-
 export default function ProductsClient() {
   const [category, setCategory] = useState("containerboard");
   const [selectedUse, setSelectedUse] = useState("All");
@@ -152,7 +150,7 @@ export default function ProductsClient() {
         />
       </Head>
 
-      <HeaderTranspirant />
+      <HeaderWhite />
 
       {/* ✅ New editorial hero typography */}
       <HeroMedia

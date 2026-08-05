@@ -8,6 +8,7 @@ import HeroMedia from "@/components/HeroMedia";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import WhistleblowerCtaSection from "@/components/WhistleblowerCtaSection";
 import { contactPage } from "./data";
+import HeaderWhite from "@/components/Header/HeaderWhite";
 
 
 const BORDER = "border-[#e4e4e4]";
@@ -105,7 +106,7 @@ export default function ContactUsPage() {
 
   return (
     <main className="w-full bg-white">
-      <HeaderTranspirant />
+      <HeaderWhite />
 
       <HeroMedia {...contactPage.hero} />
 

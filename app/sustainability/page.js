@@ -13,12 +13,13 @@ import CertificationsSection from "./CertificationsSection";
 import ContinueReading from "@/components/ContinueReading";
 import WhistleblowerCtaSection from "@/components/WhistleblowerCtaSection";
 import { sustainabilityPage } from "./data";
+import HeaderWhite from "@/components/Header/HeaderWhite";
 
 
 export default function AboutPage() {
   return (
     <main className="min-h-screen bg-white text-neutral-900">
-      <HeaderTranspirant />
+      <HeaderWhite />
 
       {/* ✅ New editorial hero typography */}
       <HeroMedia
